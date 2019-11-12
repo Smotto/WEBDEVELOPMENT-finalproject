@@ -10,8 +10,8 @@ Please follow the instructions below and fill in the information requested when 
 
 |               | Name          | Email         |
 |:-------------:|:-------------:|:-------------:|
-| Team Member 1 | namehere      | emailhere     |
-| Team Member 2 | namehere      | emailhere     |
+| Team Member 1 | Jarod Castillo      | jcastillo1@mail.sfsu.edu     |
+| Team Member 2 | Jahir Hernandez      | Jhernandez12@mail.sfsu.edu     |
 
 ## Changing Repository Name
 
