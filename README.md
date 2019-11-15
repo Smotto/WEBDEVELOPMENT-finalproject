@@ -29,7 +29,7 @@ Which ever member created the repository will need to invite the other member to
 # Build/Run Instructions
 Below please explain how to fully install and run your application.
 
-1. Downlaod zip folder.
+1. Download zip folder.
 2. Download and Install Node.js
 2. Access terminal.
 3. Change directory to unzipped folder.
