@@ -33,5 +33,6 @@ Below please explain how to fully install and run your application.
 2. Download and Install Node.js
 2. Access terminal.
 3. Change directory to unzipped folder.
+4. Type into the terminal "npm express install --save"
 4. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
 5. Browse through the website.
