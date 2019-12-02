@@ -1,12 +1,41 @@
-h1
+div.HomePageLinks
 {
-    text-align: center;
-    font-size: 200%;
+    display:grid;
+    /*
+    grid-template-columns: 20% 20% 20%;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    grid-gap: 25em;
+    */
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 38em;
+    /* grid-auto-rows: 100px; */
+    /*    grid-auto-rows: minmax(100px, auto);  */
+    justify-items: center;
+    align-items: center;
+
 }
-a
+div.HomePageLinks > a
 {
     font-size: 180%;
+    padding: 1em;
 }
+div.HomePageLinks > a:nth-child(odd)
+{
+    /* background: grey; */
+}
+div.postsByUsers > a
+{
+    grid-auto-columns: 100px;
+    grid-auto-rows: 100px;
+}
+h1
+{
+    position: relative;
+    text-align: left;
+    font-size: 200%;
+}
+
 span + strong
 {
     background-color: #F1F1F1;
@@ -16,7 +45,7 @@ span + strong
 }
 html
 {
-    background-image: url("tumblr_n2nsp08SHe1sb65tmo1_1280.png");
+    background-image: url("../images/tumblr_n2nsp08SHe1sb65tmo1_1280.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
