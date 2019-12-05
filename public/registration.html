@@ -1,49 +1,47 @@
 <html lang="en">
-<script type="text/javascript" defer src="javascripts/registration.js"></script>
-<link rel="stylesheet" type="text/css" href="stylesheets/loginStyleSheet.css">
-<meta charset="UTF-8">
-
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/pureStyleSheet.css">
+    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+    <title>Photo-App Registration</title>
+</head>
 <body>
-    <h1>
-        <span>Registration</span>
-        <strong>Info</strong>
-    </h1>
-<form>
-    <fieldset>
-        <div id="userNameTitle"> User Name: </div>
-        <label>
-            <input type="text" id="userNameInputReg" placeholder="User Name" />
-        </label>
-
-        <div id="passWordTitle"> Password: </div>
-        <label>
-            <input type="password" id="passWordInputReg" placeholder="Password " />
-        </label>
-
-        <div id="passWordConfirmation"> Same Password: </div>
-        <label>
-            <input type="password" id="passWordConfirmationInputReg" placeholder="Password " />
-        </label>
-
-        <div id="email"> Email: </div>
-        <label>
-            <input id="emailInput" placeholder="Email  " />
-        </label>
-    <b>
-        <div id="user13plus"> Check the box if you are 13+ years of age </div>
-        <label>
-            <input type="checkbox" id="user13plusInput"/>
-        </label>
-
-        <div id="TOSPrivacy"> Check the box if you agree with our TOS and Privacy Rules </div>
-        <label>
-            <input type="checkbox" id="TOSPrivacyInput"/>
-        </label>
-    </b>
-        <p id="Register">
-            <button type = "submit" id = "RegisterInput"> Register </button>
-        </p>
-    </fieldset>
-</form>
+<div class = "container">
+    <div class = "menu">
+        <ul>
+            <li class = "logo"><img src = "images/SpongeDance.gif"></li>
+            <li><a class = "home-btn" href = "index.html"><i class="fa fa-home"></i>Home</a></li>
+            <li><a class = "login-btn" href = "login.html">Login</a></li>
+            <li><a class = "logout-btn" href = "index.html">Logout</a></li>
+            <li class = "active"><a class = "register-btn" href = "registration.html"><span>Register</span></a></li>
+            <li><a class = "postImage-btn" href = "postimage.html"><i class="fa fa-camera"></i>Post</a></li>
+            <li><label class = "search-post"><i class="fa fa-search"></i>Search Post<input type = "text" placeholder = "Image, Author, Text"></label></li>
+            <script type="text/javascript" defer src = "javascripts/registration.js"></script>
+        </ul>
+    </div>
+    <form class = "LoginForm">
+        <fieldset class = "LoginField">
+            <label class = "userName"> User Name
+                <input id = "userNameInput" type = "text" placeholder = "New username "/>
+            </label>
+            <label class = "passWord"> Password
+                <input id = "passWordInput" type = "password" placeholder = "New password "/>
+            </label>
+            <label class = "passWordRepeat"> Repeat Password
+                <input id = "passWordConfirmationInput" type = "password" placeholder = "Repeat Password "/>
+            </label>
+            <label class = "email"> Your Email
+                <input id = "emailInput" placeholder="Email"/>
+            </label>
+            <label class = "user13plus"> Check the box if you are 13+ years of age
+                <input id = "user13plusInput" type = "checkbox" />
+            </label>
+            <label class = "TOSPrivacy"> Check the box if you agree with our TOS and Privacy Rules
+                <input id = "TOSPrivacyInput" type = "checkbox" />
+            </label>
+            <button id = "registerEnter" type = "button">Register</button>
+        </fieldset>
+    </form>
+</div>
 </body>
 </html>

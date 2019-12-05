@@ -1,5 +1,5 @@
 // o require the user to enter a username that is 3 or more alphanumeric characters.
-let userNameInputReg = document.getElementById('userNameInputReg');
+let userNameInputReg = document.getElementById('userNameInput');
 userNameInputReg.required = true;
 let userNameInputRegBool = false;
 
@@ -25,22 +25,22 @@ function validationUserName(userNameInput, size)
     }
 }
 // require the user to enter a username that is 3 or more alphanumeric characters.
-function userNameInputRegOnChange(userNameInput, userBoolean)
+function userNameInputRegOnChange(userNameInput)
 {
     userNameInput.onchange = ((ev) =>
     {
-        userBoolean = validationUserName(userNameInput, 3);
+        userNameInputRegBool = validationUserName(userNameInput, 3);
         console.log(ev);
     });
 }
-userNameInputRegOnChange(userNameInputReg, userNameInputRegBool);
+userNameInputRegOnChange(userNameInputReg);
 
 
 
 // o require the user to enter a password that is 8 or more characters AND contains at least
 // 1 upper case letter AND 1 number and 1 of the following special characters ( / * - ! @ # $ ^ & * ).
 // o require the user to enter a password that is 8 or more characters.
-let passWordInputReg = document.getElementById("passWordInputReg");
+let passWordInputReg = document.getElementById("passWordInput");
 passWordInputReg.required = true;
 let passWordBooleanReg = false;
 let passWordFilter = /^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,32}$/;
@@ -65,7 +65,7 @@ passWordInputReg.onchange = ((ev) =>
     console.log(ev);
 });
 // o require that the password and confirm password inputs are the same.
-let passWordConfirmationInputReg = document.getElementById("passWordConfirmationInputReg");
+let passWordConfirmationInputReg = document.getElementById("passWordConfirmationInput");
 passWordConfirmationInputReg.required = true;
 let passWordConfirmationBooleanReg = false;
 passWordConfirmationInputReg.onchange = ((ev) =>
@@ -88,8 +88,24 @@ let emailInput = document.getElementById("emailInput");
 emailInput.setAttribute("type", "email");
 emailInput.required = true;
 let emailInputBool = false;
+
+// https://www.w3resource.com/javascript/form/email-validation.php
+function checkEmail(emailInputTemp)
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInputTemp.value))
+    {
+        emailInputBool = true;
+    }
+    else
+    {
+        alert("You have entered an invalid email address!");
+        emailInputBool = false;
+    }
+}
+
 emailInput.onchange = ((ev) =>
 {
+    checkEmail(emailInput);
     console.log(ev);
 });
 // o require the user to select that they are 13+ years of age.
@@ -112,7 +128,7 @@ tosPrivacyButton.onchange = ((ev) =>
 });
 
 
-let subButton = document.getElementById('RegisterInput');
+let subButton = document.getElementById("registerEnter");
 let regInformation = {};
 subButton.onclick = ((ev) =>
 {
@@ -125,9 +141,18 @@ subButton.onclick = ((ev) =>
         regInformation.passWord = passWordInputReg.value;
         regInformation.email = emailInput.value;
         // ▪ Convert this JS Object into JSON. ( JSON.stringify() )
-        let convertedJSObject = JSON.stringify(loginInformation);
+        let convertedJSObject = JSON.stringify(regInformation);
         // ▪ Print the JSON using console.log
         console.log(convertedJSObject);
+    }
+    else
+    {
+        console.log(userNameInputRegBool);
+        console.log(passWordBooleanReg);
+        console.log(passWordConfirmationBooleanReg);
+        console.log(emailInputBool);
+        console.log(thirteenPlusButtonBool);
+        console.log(tosPrivacyButtonBool);
     }
     console.log(ev);
 });

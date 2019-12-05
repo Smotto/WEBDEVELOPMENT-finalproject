@@ -58,7 +58,7 @@ passWordInput.onchange = ((ev) =>
 });
 
 // o Add an action to your form, when the form is submitted you can do the following:
-let subButton = document.getElementById('submitButton');
+let subButton = document.getElementById('loginEnter');
 let loginInformation = {};
 subButton.onclick = ((ev) =>
 {

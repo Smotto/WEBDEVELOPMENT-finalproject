@@ -1,38 +1,45 @@
 <html lang="en">
-<link rel="stylesheet" type="text/css" href="stylesheets/loginStyleSheet.css">
-<script type="text/javascript" defer src="javascripts/postimage.js"></script>
-<meta charset="UTF-8">
-
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/pureStyleSheet.css">
+    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+    <title>Photo-App Image</title>
+</head>
 <body>
-<h1>
-    <span>Post</span>
-    <strong>Image</strong>
-</h1>
-<form>
-    <fieldset>
-        <div id="PostTitle">Post Title: </div>
-        <label>
-            <input type="text" id="inputPostTitle" placeholder="Post Title " />
-        </label>
-
-        <div id="PostDescription">Post Description: </div>
-        <label>
-            <input type="text" id="inputPostDescription" placeholder="Post Description " />
-        </label>
-
-        <div id="PostImage">Post Image: </div>
-        <input type="file" id="inputPostImage">
-        <br><img id="image" src="#" alt="Your Image Should Be Here."><br>
-
-        <b id="TOSPrivacy"> Check the box if you accept the Acceptable Use Policy for uploading images.</b>
-            <label>
-                <input type="checkbox" id="inputTOSPrivacy"/>
+<div class = "container">
+    <div class = "menu">
+        <ul>
+            <li class = "logo"><img src = "images/SpongeDance.gif"></li>
+            <li><a class = "home-btn" href = "index.html"><i class="fa fa-home"></i>Home</a></li>
+            <li class = "active"><a class = "login-btn" href = "login.html">Login</a></li>
+            <li><a class = "logout-btn" href = "index.html">Logout</a></li>
+            <li><a class = "register-btn" href = "registration.html"><span>Register</span></a></li>
+            <li><a class = "postImage-btn" href = "postimage.html"><i class="fa fa-camera"></i>Post</a></li>
+            <li><label class = "search-post"><i class="fa fa-search"></i>Search Post<input type = "text" placeholder = "Image, Author, Text"></label></li>
+            <script type="text/javascript" defer src = "javascripts/postimage.js"></script>
+        </ul>
+    </div>
+    <form>
+        <fieldset>
+            <label class = "PostTitle"> Post Title
+                <input id = "inputPostTitle" type="text" placeholder="Post Title " />
             </label>
-        <p>
-            <button id="submit"> Post </button>
-        </p>
 
-    </fieldset>
-</form>
+            <label class = "PostDescription"> Post Description
+                <input id = "inputPostDescription" type = "text"  placeholder = "Post Description " />
+            </label>
+
+            <label class = "PostImage"> Post Image
+                <input id = "inputPostImage" type = "file" >
+                <img class = "image" src="#" alt = "AAAAAAAAAAAAAAAA">
+            </label>
+
+            <label class = "TOSPrivacy"> Check the box if you accept the Acceptable Use Policy for uploading images.
+                <input id = "inputTOSPrivacy" type = "checkbox"/>
+            </label>
+            <button id = "postButton" type = "button">Post</button>
+        </fieldset>
+    </form>
+</div>
 </body>
 </html>

@@ -1,0 +1,250 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+/* Home Page */
+.container
+{
+    background: #42455a;
+    width: 100%;
+    height: 100%;
+}
+.menu ul{
+    display: inline-flex;
+    margin: 50px;
+}
+.menu ul i.fa
+{
+    display: inline-flex;
+    margin-right: 7px;
+}
+.menu ul li{
+    display: inline-flex;
+    margin: 0 20px;
+    color: #b2b1b1;
+}
+.menu ul li.logo
+{
+    /* Makes Logo Size Static.*/
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+.menu ul li a.home-btn
+{
+    display: inline-flex;
+    position: absolute;
+    text-decoration: none;
+    color: #b2b1b1;
+    transition: color .4s;
+}
+.menu ul li a.home-btn:hover
+{
+    color: mediumspringgreen;
+}
+.menu ul li a.postImage-btn
+{
+    position: absolute;
+    display: inline-flex;
+    text-decoration: none;
+    color: #b2b1b1;
+    transition: color .4s;
+}
+.menu ul li a.postImage-btn:hover
+{
+    color: mediumspringgreen;
+}
+.menu ul li a.login-btn
+{
+    display: inline-flex;
+    right: 300px;
+    position: absolute;
+    text-decoration: none;
+    color: #b2b1b1;
+    transition: color .4s;
+}
+.menu ul li a.login-btn:hover
+{
+    color: mediumspringgreen;
+}
+.menu ul li a.logout-btn
+{
+    display: inline-flex;
+    right: 220px;
+    position: absolute;
+    text-decoration: none;
+    color: #b2b1b1;
+    transition: color .4s;
+}
+.menu ul li a.logout-btn:hover
+{
+    color: mediumspringgreen;
+}
+.menu ul li a.register-btn
+{
+    top: 40px;
+    right: 80px;
+    position: absolute;
+    text-decoration: none;
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(#42455a, #42455a),
+    radial-gradient(circle at top left, #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+.menu ul li a.register-btn span
+{
+    display: block;
+    padding: 8px 20px;
+    transition: color .4s;
+}
+.menu ul li a.register-btn span:hover
+{
+    color: mediumspringgreen;
+}
+.menu ul li label.search-post
+{
+    color: mediumspringgreen;
+    margin-left: 100px;
+}
+.menu ul li label.search-post input[type = text]
+{
+    position: absolute;
+    font-style: italic;
+    outline: none;
+    width: 10%;
+    border: #42455a;
+    border-radius: 10px;
+    padding: 6px;
+    margin-left: 10px;
+    margin-top: -4px;
+    transition: width .4s;
+    -webkit-transition: width .4s; /* Safari 3.1 to 6.0 */
+}
+.menu ul li label.search-post input[type = text]:focus
+{
+    width: 25%;
+}
+.logo img
+{
+    width: 50px;
+    margin-top: -7px;
+    margin-right: 48px;
+}
+.active *
+{
+    text-decoration: none;
+    color: #19dafa !important;
+}
+/* Text Fields and Paragraphs.*/
+.banner
+{
+    position: absolute;
+    left: 130px;
+    top: 15%;
+    color: #fff;
+    margin: 0 0 0 -55px;
+}
+.banner .app-pictures .row {
+    display: flex;
+}
+.banner .app-pictures .column {
+    flex: 33.33%;
+    padding: 5px;
+    max-width: 50%;
+    height: auto;
+}
+.app-text
+{
+}
+.app-text h1
+{
+    font-size: 43px;
+    position: relative;
+    margin-left: 40px;
+}
+.app-text p
+{
+    font-size: 15px;
+    margin: 30px 0 30px 40px;
+    line-height: 25px;
+    color: #919191;
+}
+small
+{
+    margin: auto 20px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #19dafa;
+    letter-spacing: 3px;
+}
+
+/* All Form Specifics */
+form
+{
+    text-align: center;
+}
+fieldset
+{
+    margin-top: -175px;
+    display: inline-flex;
+    width: 25%;
+    background-image: linear-gradient(#19d7f8, #fd00da);
+    border-radius: 4px;
+    border: #b2b1b1;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+fieldset label
+{
+    padding: 15px;
+}
+fieldset input
+{
+    border: 2px lightskyblue;
+    border-radius: 4px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-style: italic;
+}
+fieldset button
+{
+    outline: none;
+    margin: 50px auto;
+    height: 75px;
+    width: 75px;
+    font-size: 100%;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background-image: linear-gradient(#42455a, #42455a),
+    radial-gradient(circle at top left, #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    cursor: pointer;
+    transition: color .4s;
+}
+fieldset button[id = registerEnter]
+{
+    font-size: 90%;
+}
+fieldset input[type="checkbox"]
+{
+    cursor: pointer;
+    display: inline-flex;
+    margin: 0 auto;
+    width: 0;
+    height: 10px;
+}
+fieldset input[type="file"]
+{
+}
+fieldset button:hover
+{
+    color: mediumspringgreen;
+}
