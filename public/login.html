@@ -1,29 +1,35 @@
 <html lang="en">
-<link rel="stylesheet" href="stylesheets/loginStyleSheet.css">
-<script type="text/javascript" defer src="javascripts/login.js"></script>
-<meta charset="UTF-8">
-
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/pureStyleSheet.css">
+    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+    <title>Photo-App Login</title>
+</head>
 <body>
-    <h1>
-        <span>Login</span>
-        <strong>Info</strong>
-    </h1>
-    <form id="LoginForm">
-        <fieldset>
-            <div id="userName"> User Name: </div>
-            <label>
-                <input id="userNameInput" type="text" placeholder="User Name " />
+<div class = "container">
+    <div class = "menu">
+        <ul>
+            <li class = "logo"><img src = "images/SpongeDance.gif"></li>
+            <li><a class = "home-btn" href = "index.html"><i class="fa fa-home"></i>Home</a></li>
+            <li class = "active"><a class = "login-btn" href = "login.html">Login</a></li>
+            <li><a class = "logout-btn" href = "index.html">Logout</a></li>
+            <li><a class = "register-btn" href = "registration.html"><span>Register</span></a></li>
+            <li><a class = "postImage-btn" href = "postimage.html"><i class="fa fa-camera"></i>Post</a></li>
+            <li><label class = "search-post"><i class="fa fa-search"></i>Search Post<input type = "text" placeholder = "Image, Author, Text"></label></li>
+            <script type="text/javascript" defer src = "javascripts/login.js"></script>
+        </ul>
+    </div>
+    <form class = "LoginForm">
+        <fieldset class = "LoginField">
+            <label class = "userName"> User Name
+                <input id = "userNameInput" type = "text" placeholder = "User Name "/>
             </label>
-
-            <div id="passWord">Password: </div>
-            <label>
-                <input id="passWordInput" type="password" placeholder="Password " />
+            <label class = "passWord"> Password
+                <input id = "passWordInput" type = "password" placeholder = "Password "/>
             </label>
-
-            <p id="Login">
-                <button id="submitButton" type="submit"> Login </button>
-            </p>
+            <button id = "loginEnter" type = "button">Login</button>
         </fieldset>
     </form>
+</div>
 </body>
 </html>

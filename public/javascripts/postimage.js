@@ -69,7 +69,7 @@ policyButton.onchange = ((ev) =>
 });
 
 // o Add an action to your form that way, when the form is submitted you can do...
-let subButton = document.getElementById("submit");
+let subButton = document.getElementById("postButton");
 let postInformation = {};
 subButton.onclick = ((ev) =>
 {

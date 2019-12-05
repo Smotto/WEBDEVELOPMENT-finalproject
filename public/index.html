@@ -1,12 +1,53 @@
 <html lang="en">
-<link rel="stylesheet" href="stylesheets/loginStyleSheet.css">
-<meta charset="UTF-8">
-
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/pureStyleSheet.css">
+    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+    <title>Photo-App Home</title>
+</head>
 <body>
-  <h1>Photo App - Home Page</h1>
-  <p>Welcome!</p>
-  <a href = "login.html">Login!</a>
-  <a href = "registration.html">Register!</a>
-  <a href = "index.html">Logout</a>
+<div class = "container">
+    <div class = "menu">
+        <ul>
+            <li class = "logo"><img src = "images/SpongeDance.gif"></li>
+            <li class = "active"><a  class = "home-btn" href = "index.html"><i class="fa fa-home"></i>Home</a></li>
+            <li><a class = "login-btn" href = "login.html">Login</a></li>
+            <li><a class = "logout-btn" href = "index.html">Logout</a></li>
+            <li><a class = "register-btn" href = "registration.html"><span>Register</span></a></li>
+            <li><a class = "postImage-btn" href = "postimage.html"><i class="fa fa-camera"></i>Post</a></li>
+            <li><label class = "search-post"><i class="fa fa-search"></i>Search Post<input type = "text" placeholder = "Image, Author, Text"></label></li>
+        </ul>
+    </div>
+    <div class = "banner">
+        <div class = "app-text">
+            <h1>Welcome to Photo-App!<br>Click any image below to view a post!</h1>
+        </div>
+        <div class = "app-pictures">
+            <div class="row">
+                <div class="column">
+                    <a href = "viewPost.html"><img src = "images/SpongeWaveAnimation.gif"></a>
+                </div>
+                <div class="column">
+                    <a href = "viewPost.html"><img src = "images/SpongeWaveAnimation.gif"></a>
+                </div>
+                <div class="column">
+                    <a href = "viewPost.html"><img src = "images/SpongeWaveAnimation.gif"></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <a href = "viewPost.html"><img src = "images/SpongeWaveAnimation.gif"></a>
+                </div>
+                <div class="column">
+                    <a href = "viewPost.html"><img src = "images/SpongeWaveAnimation.gif"></a>
+                </div>
+                <div class="column">
+                    <a href = "viewPost.html"><img src = "images/SpongeWaveAnimation.gif"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>
