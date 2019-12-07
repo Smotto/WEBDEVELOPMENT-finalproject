@@ -141,6 +141,7 @@ subButton.onclick = ((ev) =>
         console.log(emailInputBool);
         console.log(thirteenPlusButtonBool);
         console.log(tosPrivacyButtonBool);
+        alert("Unable to register.")
     }
     console.log(ev);
 });

@@ -11,6 +11,12 @@
     width: 100%;
     height: 100%;
 }
+.menu
+{
+    position: center;
+    background-color: #36384a;
+    height: 9%;
+}
 .menu ul{
     display: inline-flex;
     margin: 50px;
