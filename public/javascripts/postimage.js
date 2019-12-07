@@ -1,19 +1,16 @@
-// o require user to enter text for Post Title.
 let inputPostTitle = document.getElementById("inputPostTitle");
 inputPostTitle.required = true;
 let postTitleBool = false;
-function validationOfSize(documentElement)
+function validationOfSize(documentElement, size)
 {
-    return documentElement.required;
+    return documentElement.value > size;
 }
 inputPostTitle.onchange = ((ev) =>
 {
-    postTitleBool = validationOfSize(inputPostTitle);
+    postTitleBool = validationOfSize(inputPostTitle, 3);
     console.log(ev);
 });
 
-
-// o require user to enter text for post description.
 let inputPostDescription = document.getElementById("inputPostDescription");
 inputPostDescription.required = true;
 let postDescriptionBool = false;
@@ -23,8 +20,6 @@ inputPostDescription.onchange = ((ev) =>
     console.log(ev);
 });
 
-
-// o Require the user to only upload images that are either jpg, png, bmp, gif
 let inputPostImage = document.getElementById('inputPostImage');
 inputPostImage.required = true;
 let inputPostImageBool = false;
@@ -57,8 +52,6 @@ function isFileAnImage(file) {
     return file && imageTypes.includes(file['type'])
 }
 
-
-// o require the user to accept Acceptable Use Policy for uploading images
 let policyButton = document.getElementById("inputTOSPrivacy");
 policyButton.required = true;
 let policyButtonBool = false;
@@ -68,24 +61,18 @@ policyButton.onchange = ((ev) =>
     console.log(ev);
 });
 
-// o Add an action to your form that way, when the form is submitted you can do...
 let subButton = document.getElementById("postButton");
 let postInformation = {};
 subButton.onclick = ((ev) =>
 {
     if (inputPostImageBool && policyButtonBool && postDescriptionBool && postTitleBool)
     {
-        // ▪ Grab all needed input values from the input fields of the form.
-        // • Note for the file, the path to the file is OK.
-
-        // ▪ Store these values into a JavaScript Object (basically key value pairs).
         postInformation.image = img;
         postInformation.title = inputPostTitle;
         postInformation.description = inputPostDescription;
-        // ▪ Convert this JS Object into JSON. (JSON.stringify() )
         let postImageJSON = JSON.stringify(postInformation);
-        // ▪ Print the JSON using console.log
         console.log(postImageJSON);
+        alert("Success! Click ok to view your post!");
     }
     else
     {
@@ -93,6 +80,7 @@ subButton.onclick = ((ev) =>
         console.log(postTitleBool);
         console.log(postDescriptionBool);
         console.log(policyButtonBool);
+        alert("Cannot Post Image.")
     }
     console.log(ev);
 });
