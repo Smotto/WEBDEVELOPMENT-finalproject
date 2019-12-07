@@ -24,7 +24,7 @@ function validationUserName(userNameInput, size)
     }
 }
 // require the user to enter a username that is 3 or more alphanumeric characters.
-function userNameInputOnChange(userNameInput, userBoolean)
+function userNameInputOnChange(userNameInput)
 {
     userNameInput.onchange = ((ev) =>
     {
@@ -32,7 +32,7 @@ function userNameInputOnChange(userNameInput, userBoolean)
         console.log(ev);
     });
 }
-userNameInputOnChange(userNameInput, userBoolean);
+userNameInputOnChange(userNameInput);
 
 
 let passWordInput = document.getElementById("passWordInput");
@@ -50,31 +50,30 @@ function validationPassword(passWordInput, size)
         return true;
     }
 }
-// o require the user to enter a password that is 8 or more characters.
+
 passWordInput.onchange = ((ev) =>
 {
     passwordBoolean = validationPassword(passWordInput, 8);
     console.log(ev);
 });
 
-// o Add an action to your form, when the form is submitted you can do the following:
 let subButton = document.getElementById('loginEnter');
 let loginInformation = {};
 subButton.onclick = ((ev) =>
 {
     if (userBoolean && passwordBoolean)
     {
-        // ▪ Grab all needed input values from the input fields of the form.
-        // ▪ Store these values into a JavaScript Object (basically key value pairs).
         loginInformation.userName = userNameInput.value;
         loginInformation.passWord = passWordInput.value;
-        // ▪ Convert this JS Object into JSON. ( JSON.stringify() )
         let convertedJSObject = JSON.stringify(loginInformation);
-        // ▪ Print the JSON using console.log
         console.log(convertedJSObject);
+        alert("Success!");
+        window.location.replace("/index.html")
     }
     else
     {
+        console.log(userBoolean);
+        console.log(passwordBoolean);
         alert("Username or Password incorrect.")
     }
     console.log(ev);
