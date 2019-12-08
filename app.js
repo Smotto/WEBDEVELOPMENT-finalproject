@@ -20,9 +20,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-/* Template engine
+/* Template engine */
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'HTML');*/
+app.set('view engine', 'HTML');
 
 /* session
 app.use(session({
