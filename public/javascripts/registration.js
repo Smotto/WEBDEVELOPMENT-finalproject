@@ -132,6 +132,8 @@ subButton.onclick = ((ev) =>
         regInformation.email = emailInput.value;
         let convertedJSObject = JSON.stringify(regInformation);
         console.log(convertedJSObject);
+        alert("Success!");
+        window.location.replace("/index.html")
     }
     else
     {
