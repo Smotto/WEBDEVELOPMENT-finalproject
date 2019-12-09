@@ -36,5 +36,7 @@ Below please explain how to fully install and run your application.
 5. Type into the terminal "npm express install --save"
 6. Type into the terminal "npm install mysql"
 7. Type into the terminal "npm install mustache"
-8. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
-9. Browse through the website.
+8. Type into the terminal "npm install express-session"
+9. Run the init.sql script in your terminal using mySQL to create the database.
+10. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
+11. Browse through the website.
