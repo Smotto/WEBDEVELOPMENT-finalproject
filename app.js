@@ -13,13 +13,13 @@ const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const postimageRouter = require('./routes/postimage');
 const registrationRouter = require('./routes/registration');
-const viewPostRouter = require('./routes/viewpost');
+const viewpostRouter = require('./routes/viewpost');
 
 
 /* Template engine */
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
-app.set('views', ['./views']);
+app.set('views', ['./public/views']);
 
 
 app.use(logger('dev'));
@@ -33,7 +33,7 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/postimage', postimageRouter);
 app.use('/registration', registrationRouter);
-app.use('/viewpost', viewPostRouter);
+app.use('/viewpost', viewpostRouter);
 
 
 /* session */
