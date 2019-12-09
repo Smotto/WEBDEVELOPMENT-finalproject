@@ -35,5 +35,6 @@ Below please explain how to fully install and run your application.
 4. Change directory to unzipped folder.
 5. Type into the terminal "npm express install --save"
 6. Type into the terminal "npm install mysql"
-7. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
-8. Browse through the website.
+7. Type into the terminal "npm install mustache"
+8. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
+9. Browse through the website.

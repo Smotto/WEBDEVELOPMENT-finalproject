@@ -3,7 +3,7 @@ const registrationRouter = express.Router();
 
 registrationRouter.use((req, res, next) =>
 {
-    console.log('middleware being used');
+    console.log('Registration middleware being used.');
     next();
 });
 

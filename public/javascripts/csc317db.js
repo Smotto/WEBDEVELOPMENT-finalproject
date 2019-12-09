@@ -1,7 +1,7 @@
 // Requires npm install mysql.
 // https://www.w3schools.com/nodejs/nodejs_mysql.asp used as a guideline.
-let mysql = require('mysql');
-let connection = mysql.createConnection({
+const mysql = require('mysql');
+const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
@@ -20,7 +20,7 @@ function createUsersTable()
 {
     // Creating a table IF NOT EXISTS named "users"
     // id INT AUTO_INCREMENT PRIMARY KEY means it's going to increment by 1 each time a new record is inputted.
-    let sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
+    const sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
         "  `id` int unsigned NOT NULL AUTO_INCREMENT,\n" +
         "  `username` varchar(255) NOT NULL,\n" +
         "  `email` varchar(255) NOT NULL,\n" +
@@ -40,7 +40,7 @@ function createImagePostsTable()
 {
     // Creating a table IF NOT EXISTS named "users"
     // id INT AUTO_INCREMENT PRIMARY KEY means it's going to increment by 1 each time a new record is inputted.
-    let sql = "CREATE TABLE IF NOT EXISTS `imageposts` (\n" +
+    const sql = "CREATE TABLE IF NOT EXISTS `imageposts` (\n" +
         "  `id` int unsigned NOT NULL AUTO_INCREMENT,\n" +
         "  `title` varchar(512) NOT NULL,\n" +
         "  `description` varchar(8096) NOT NULL,\n" +
@@ -61,7 +61,7 @@ function createCommentsTable()
 {
     // Creating a table IF NOT EXISTS named "users"
     // id INT AUTO_INCREMENT PRIMARY KEY means it's going to increment by 1 each time a new record is inputted.
-    let sql = "CREATE TABLE IF NOT EXISTS `comments` (\n" +
+    const sql = "CREATE TABLE IF NOT EXISTS `comments` (\n" +
         "  `id` int unsigned NOT NULL,\n" +
         "  `comment` varchar(4096) NOT NULL,\n" +
         "  `fk_postid` int unsigned NOT NULL,\n" +

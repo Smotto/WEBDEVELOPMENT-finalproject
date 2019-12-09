@@ -3,14 +3,14 @@ const loginRouter = express.Router();
 
 loginRouter.use((req, res, next) =>
 {
-    console.log('middleware being used');
+    console.log('Postimage middleware being used.');
     next();
 });
 
 loginRouter.get('/', function(req, res)
 {
     console.log('postimage.mustache initialized');
-    res.render('postimage');
+    res.render('postimage', {title: 'Post An Image'});
 });
 
 // If you don't export, nobody can import it :thinking:
