@@ -1,7 +1,7 @@
 // Requires npm install mysql.
 // https://www.w3schools.com/nodejs/nodejs_mysql.asp used as a guideline.
 let mysql = require('mysql');
-let con = mysql.createConnection({
+let connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
@@ -11,94 +11,150 @@ let con = mysql.createConnection({
 function createDatabase()
 {
     // Maybe we can use the init.sql file here instead of manually launching the script in the terminal.
-    con.query("CREATE DATABASE IF NOT EXISTS csc317db", function (err, result) {
+    connection.query("CREATE DATABASE IF NOT EXISTS csc317db", function (err, result) {
         if (err) throw err;
-        console.log("Database created");
+        console.log("Database created if doesn't exist.");
     });
 }
-function createTable()
+function createUsersTable()
 {
-    // Creating a table IF NOT EXISTS named "customers"
+    // Creating a table IF NOT EXISTS named "users"
     // id INT AUTO_INCREMENT PRIMARY KEY means it's going to increment by 1 each time a new record is inputted.
-    let sql = "CREATE TABLE IF NOT EXISTS customers (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), address VARCHAR(255))";
-    con.query(sql, function (err, result) {
+    let sql = "CREATE TABLE IF NOT EXISTS `users` (\n" +
+        "  `id` int unsigned NOT NULL AUTO_INCREMENT,\n" +
+        "  `username` varchar(255) NOT NULL,\n" +
+        "  `email` varchar(255) NOT NULL,\n" +
+        "  `password` varchar(2048) NOT NULL,\n" +
+        "  `active` int NOT NULL DEFAULT '0',\n" +
+        "  PRIMARY KEY (`id`),\n" +
+        "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
+        "  UNIQUE KEY `username_UNIQUE` (`username`),\n" +
+        "  UNIQUE KEY `email_UNIQUE` (`email`)\n" +
+        ") ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("Table created");
+        console.log("Users Table created if doesn't exist.");
+    });
+}
+function createImagePostsTable()
+{
+    // Creating a table IF NOT EXISTS named "users"
+    // id INT AUTO_INCREMENT PRIMARY KEY means it's going to increment by 1 each time a new record is inputted.
+    let sql = "CREATE TABLE IF NOT EXISTS `imageposts` (\n" +
+        "  `id` int unsigned NOT NULL AUTO_INCREMENT,\n" +
+        "  `title` varchar(512) NOT NULL,\n" +
+        "  `description` varchar(8096) NOT NULL,\n" +
+        "  `fk_userid` int unsigned NOT NULL,\n" +
+        "  `active` int unsigned NOT NULL,\n" +
+        "  `photopath` varchar(1024) NOT NULL,\n" +
+        "  PRIMARY KEY (`id`),\n" +
+        "  UNIQUE KEY `postid_UNIQUE` (`id`),\n" +
+        "  KEY `id_idx` (`fk_userid`),\n" +
+        "  CONSTRAINT `id` FOREIGN KEY (`fk_userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+        ") ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Imageposts Table created if doesn't exist.");
+    });
+}
+function createCommentsTable()
+{
+    // Creating a table IF NOT EXISTS named "users"
+    // id INT AUTO_INCREMENT PRIMARY KEY means it's going to increment by 1 each time a new record is inputted.
+    let sql = "CREATE TABLE IF NOT EXISTS `comments` (\n" +
+        "  `id` int unsigned NOT NULL,\n" +
+        "  `comment` varchar(4096) NOT NULL,\n" +
+        "  `fk_postid` int unsigned NOT NULL,\n" +
+        "  `fk_userid` int unsigned NOT NULL,\n" +
+        "  PRIMARY KEY (`id`),\n" +
+        "  KEY `userID_idx` (`fk_userid`),\n" +
+        "  KEY `postimageID_idx` (`fk_postid`),\n" +
+        "  CONSTRAINT `postimageID` FOREIGN KEY (`fk_postid`) REFERENCES `imageposts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
+        "  CONSTRAINT `userID` FOREIGN KEY (`fk_userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Comments Table created if doesn't exist.");
     });
 }
 function alterTablePrimaryKeyINCREMENT()
 {
-    // Can't figure out a way for it to add a column if it does not exist already.
-    let sql = "ALTER TABLE customers ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY";
-    con.query(sql, function (err, result) {
+    let sql = "ALTER TABLE users ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Table altered");
     });
 }
-function insertRecord()
+function insertRecord(values = "('userTEST', 'emailTest', 'passwordTEST', '0')")
 {
-    let sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted");
+    // INSERT IGNORE allows "upsert"
+    // There's probably vulnerabilities still here even if we use mysql.escape
+    let sql = "INSERT IGNORE INTO users (username, email, password, active) VALUES " + mysql.escape(values);
+    connection.query(sql, function (err, result) {
+        if (err)
+        {
+            console.log("User already exists.");
+            // TODO: Should send an error back to the front end so the user knows that they can't register.
+        }
+        else
+        {
+            console.log("1 record inserted.");
+        }
     });
 }
 
-function insertMultipleRecords()
+function insertMultipleRecords(values = [
+    ['userTEST1', 'emailTest1', 'passwordTEST', '0'],
+    ['userTEST2', 'emailTest2', 'passwordTEST', '0'],
+    ['userTEST3', 'emailTest3', 'passwordTEST', '0'],
+    ['userTEST4', 'emailTest4', 'passwordTEST', '0'],
+    ['userTEST5', 'emailTest5', 'passwordTEST', '0'],
+])
 {
-    let sql = "INSERT INTO customers (name, address) VALUES ?";
-    let values = [
-        ['John', 'Highway 71'],
-        ['Peter', 'Lowstreet 4'],
-        ['Amy', 'Apple st 652'],
-        ['Hannah', 'Mountain 21'],
-        ['Michael', 'Valley 345'],
-        ['Sandy', 'Ocean blvd 2'],
-        ['Betty', 'Green Grass 1'],
-        ['Richard', 'Sky st 331'],
-        ['Susan', 'One way 98'],
-        ['Vicky', 'Yellow Garden 2'],
-        ['Ben', 'Park Lane 38'],
-        ['William', 'Central st 954'],
-        ['Chuck', 'Main Road 989'],
-        ['Viola', 'Sideway 1633']
-    ];
-    con.query(sql, [values], function (err, result) {
-        if (err) throw err;
-        console.log("Number of records inserted: " + result.affectedRows);
+    let sql = "INSERT IGNORE INTO users (username, email, password, active) VALUES ?";
+
+    connection.query(sql, [values], function (err, result) {
+        if (err)
+        {
+            console.log("1 or more of these exist already.")
+        }
+        else
+        {
+            console.log("Number of records inserted: " + result.affectedRows);
+        }
     });
 }
 function insertCustomerNameAddress(ID = "('Michelle', 'Blue Village 1')")
 {
-    let sql = `INSERT INTO customers (name, address) VALUES ${ID}`;
-    con.query(sql, function (err, result) {
+    let sql = "INSERT INTO users (name, address) VALUES " + mysql.escape(ID);
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted, ID: " + result.insertId);
     });
 }
 function selectAllFromTable()
 {
-    con.query("SELECT * FROM customers", function (err, result, fields) {
+    connection.query("SELECT * FROM users", function (err, result, fields) {
         if (err) throw err;
-        console.log("All Column Data of all Customers");
+        console.log("All Column Data of all Users");
         console.log(result);
     });
 }
 function selectFirstTwoColumns()
 {
-    con.query("SELECT name, address FROM customers", function (err, result, fields) {
+    connection.query("SELECT name, address FROM users", function (err, result, fields) {
         if (err) throw err;
 
-        console.log("Name and Addresses of all customers.");
+        console.log("Name and Addresses of all users.");
         console.log(result);
 
         console.log("Fields array for the objects.");
         console.log(fields);
     });
 }
-function selectWithFilter()
+function selectWithFilter(userName)
 {
-    con.query("SELECT * FROM customers WHERE address = 'Park Lane 38'", function (err, result) {
+    connection.query("SELECT * FROM users WHERE username = " + mysql.escape(userName), function (err, result) {
         if (err) throw err;
         console.log("Select with Filter");
         console.log(result);
@@ -108,7 +164,7 @@ function selectWithFilterWildCard()
 {
     // Maybe useful for searching through the database for potential posts.
     // S% means anything starting with S
-    con.query("SELECT * FROM customers WHERE address LIKE 'S%'", function (err, result) {
+    connection.query("SELECT * FROM users WHERE username LIKE 'S%'", function (err, result) {
         if (err) throw err;
         console.log("Select With Filter Wild Card");
         console.log(result);
@@ -117,8 +173,8 @@ function selectWithFilterWildCard()
 function preventSQLInject()
 {
     let adr = 'Mountain 21';
-    let sql = 'SELECT * FROM customers WHERE address = ' + mysql.escape(adr);
-    con.query(sql, function (err, result) {
+    let sql = 'SELECT * FROM users WHERE address = ' + mysql.escape(adr);
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Prevent SQL Injection");
         console.log(result);
@@ -129,8 +185,8 @@ function preventMultipleSQLInject()
     // ? is a placeholder.
     let name = 'Amy';
     let adr = 'Mountain 21';
-    let sql = 'SELECT * FROM customers WHERE name = ? OR address = ?';
-    con.query(sql, [name, adr], function (err, result) {
+    let sql = 'SELECT * FROM users WHERE name = ? OR address = ?';
+    connection.query(sql, [name, adr], function (err, result) {
         if (err) throw err;
         console.log("Prevent Multiple SQL Injection");
         console.log(result);
@@ -139,7 +195,7 @@ function preventMultipleSQLInject()
 function sortResult()
 {
     // Sort Alphabetically
-    con.query("SELECT * FROM customers ORDER BY name", function (err, result) {
+    connection.query("SELECT * FROM users ORDER BY username", function (err, result) {
         if (err) throw err;
         console.log("Sorting Alphabetically");
         console.log(result);
@@ -147,43 +203,42 @@ function sortResult()
 }
 function orderByDesc()
 {
-    con.query("SELECT * FROM customers ORDER BY name DESC", function (err, result) {
+    connection.query("SELECT * FROM users ORDER BY name DESC", function (err, result) {
         if (err) throw err;
         console.log("Ordering By Description, Reverse Alphabetically");
         console.log(result);
     });
 }
-function deleteRecord()
+function deleteRecord(record = "userTEST")
 {
-    let record = "Park Lane 38";
-    let sql = `DELETE FROM customers WHERE address = '${record}'`;
-    con.query(sql, function (err, result) {
+    let sql = "DELETE FROM users WHERE username = " + mysql.escape(record);
+    connection.query(sql, function (err, result) {
         if (err) throw err;
-        console.log(`Deleting all record that contain ${record}`);
+        console.log(`Deleting all records that contain ${record}`);
         console.log("Number of records deleted: " + result.affectedRows);
     });
 }
 function deleteTableIfExists()
 {
-    let sql = "DROP TABLE IF EXISTS customers";
-    con.query(sql, function (err, result) {
+    let sql = "DROP TABLE IF EXISTS users";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
     });
 }
 function updateTable()
 {
-    let sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'";
-    con.query(sql, function (err, result) {
+    let sql = "UPDATE users SET address = 'Canyon 123' WHERE address = 'Valley 345'";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result.affectedRows + " record(s) updated");
     });
 }
 function limitResult()
 {
-    // Select only the first 5 customers.
-    let sql = "SELECT * FROM customers LIMIT 5";
-    con.query(sql, function (err, result) {
+    // Select only the first 5 users.
+    let sql = "SELECT * FROM users LIMIT 5";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
     });
@@ -191,8 +246,8 @@ function limitResult()
 function startFromPosition3LimitResult()
 {
     // OFFSET from 1, so 1 + 2 = 3
-    let sql = "SELECT * FROM customers LIMIT 5 OFFSET 2";
-    con.query(sql, function (err, result) {
+    let sql = "SELECT * FROM users LIMIT 5 OFFSET 2";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Starting from position 3, a 2 offset from 1. ");
         console.log(result);
@@ -201,8 +256,8 @@ function startFromPosition3LimitResult()
 function shorterVersionOfStartFromPosition3LimitResult()
 {
     // Same as LIMIT 5 OFFSET 2
-    let sql = "SELECT * FROM customers LIMIT 2, 5";
-    con.query(sql, function (err, result) {
+    let sql = "SELECT * FROM users LIMIT 2, 5";
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
     });
@@ -210,7 +265,7 @@ function shorterVersionOfStartFromPosition3LimitResult()
 function joinTables()
 {
     let sql = "SELECT users.name AS user, products.name AS favorite FROM users JOIN products ON users.favorite_product = products.id";
-    con.query(sql, function (err, result) {
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
     });
@@ -235,17 +290,19 @@ function rightJoin()
 }
 function connectToServer()
 {
-    con.connect(function(err) {
+    connection.connect(function(err) {
         if (err) throw err;
         console.log("Connected to Database!");
         // createDatabase();
-        // createTable();
+        // createUsersTable();
+        // createImagePostsTable();
+        // createCommentsTable();
 
         // insertRecord();
         // insertMultipleRecords();
         // insertCustomerNameAddress();
 
-        // selectAllFromTable(); // Shows Columns are name, address, id; Rows are for each customer.
+        selectAllFromTable(); // Shows Columns are name, address, id; Rows are for each customer.
         // selectFirstTwoColumns();
         // selectWithFilter();
         // selectWithFilterWildCard();
@@ -265,6 +322,5 @@ function connectToServer()
         // joinTables();
     });
 }
-
 connectToServer();
 

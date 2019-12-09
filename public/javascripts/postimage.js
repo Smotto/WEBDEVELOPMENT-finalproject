@@ -3,11 +3,11 @@ inputPostTitle.required = true;
 let postTitleBool = false;
 function validationOfSize(documentElement, size)
 {
-    return documentElement.value > size;
+    return documentElement.value.length > size;
 }
 inputPostTitle.onchange = ((ev) =>
 {
-    postTitleBool = validationOfSize(inputPostTitle, 3);
+    postTitleBool = validationOfSize(inputPostTitle, 0);
     console.log(ev);
 });
 
@@ -16,7 +16,7 @@ inputPostDescription.required = true;
 let postDescriptionBool = false;
 inputPostDescription.onchange = ((ev) =>
 {
-    postDescriptionBool = validationOfSize(inputPostDescription);
+    postDescriptionBool = validationOfSize(inputPostDescription, 0);
     console.log(ev);
 });
 
@@ -73,12 +73,13 @@ subButton.onclick = ((ev) =>
         let postImageJSON = JSON.stringify(postInformation);
         console.log(postImageJSON);
         alert("Success! Click ok to view your post!");
+        window.location.replace("/viewpost")
     }
     else
     {
-        console.log(inputPostImageBool);
         console.log(postTitleBool);
         console.log(postDescriptionBool);
+        console.log(inputPostImageBool);
         console.log(policyButtonBool);
         alert("Cannot Post Image.")
     }

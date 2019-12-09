@@ -68,7 +68,7 @@ subButton.onclick = ((ev) =>
         let convertedJSObject = JSON.stringify(loginInformation);
         console.log(convertedJSObject);
         alert("Success!");
-        window.location.replace("/index.html")
+        window.location.replace("/index")
     }
     else
     {

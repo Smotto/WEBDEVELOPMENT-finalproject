@@ -130,8 +130,10 @@ subButton.onclick = ((ev) =>
         regInformation.userName = userNameInputReg.value;
         regInformation.passWord = passWordInputReg.value;
         regInformation.email = emailInput.value;
-        let convertedJSObject = JSON.stringify(regInformation);
-        console.log(convertedJSObject);
+        let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
+        console.log(convertedJSObjectREGISTRATION);
+        alert("Success!");
+        window.location.replace("/index")
     }
     else
     {
