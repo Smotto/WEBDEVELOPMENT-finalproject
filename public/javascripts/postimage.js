@@ -73,7 +73,7 @@ subButton.onclick = ((ev) =>
         let postImageJSON = JSON.stringify(postInformation);
         console.log(postImageJSON);
         alert("Success! Click ok to view your post!");
-        window.location.replace("/viewPost.html")
+        window.location.replace("/viewpost")
     }
     else
     {

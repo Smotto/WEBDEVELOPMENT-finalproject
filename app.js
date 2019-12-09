@@ -1,13 +1,26 @@
-var express = require('express');
-//var session = require('express-session');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// Must have mustache, express-session, cookie-parser, morgan, path, express.
+const express = require('express');
+const session = require('express-session');
+const mustache = require('mustache-express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const app = express();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+/* Routers */
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
+const postimageRouter = require('./routes/postimage');
+const registrationRouter = require('./routes/registration');
+const viewPostRouter = require('./routes/viewpost');
 
-var app = express();
+
+/* Template engine */
+app.engine('mustache', mustache());
+app.set('view engine', 'mustache');
+app.set('views', ['./views']);
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -16,15 +29,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
+app.use('/postimage', postimageRouter);
+app.use('/registration', registrationRouter);
+app.use('/viewpost', viewPostRouter);
 
 
-/* Template engine */
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'HTML');
-
-/* session
+/* session */
 app.use(session({
 	secret: 'photo app',
 	resave: false,
@@ -32,24 +44,19 @@ app.use(session({
 	cookie: {
 		maxAge: 60 * 1000 * 30
 	}
-}));*/
+}));
 
-/* Error 404
+/* Error 404 */
 app.use((req, res, next) => {
-	var err = new Error('Error 404: Page not found');
+	const err = new Error('Error 404: Page not found');
 	err.status = 404;
 	next(err);
-});*/
+});
 
-/* Handling error
+/* Handling error */
 app.use((err, req, res, next) => {
 	res.status(err.status || 500);
 	res.send(err.message);
-});*/
-
-/* Setting server
-app.listen(3000, () => {
-	console.log('Server currently running on port 3000');
-});*/
+});
 
 module.exports = app;

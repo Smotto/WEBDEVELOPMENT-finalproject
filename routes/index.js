@@ -1,16 +1,18 @@
-var express = require('express');
-// const User = require('../routes/users');
-var router = express.Router();
-// const user = new User();
+const express = require('express');
+const indexRouter = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next)
+indexRouter.get('/', (req, res) =>
 {
-  res.render('index', { title: 'Express' });
+	res.render('index', {title: 'Home'});
+});
+indexRouter.get('/index', (req, res) =>
+{
+	res.redirect('/');
+	res.render('index', {title: 'Home'});
 });
 
-/* Get Index page*/
-router.get('/', (req, res, next) =>
+/* Get Index page
+indexRouter.get('/', (req, res, next) =>
 {
 	let user = req.session.user;
 	if(user)
@@ -20,9 +22,9 @@ router.get('/', (req, res, next) =>
 	}
 	res.render('index', { title: 'Express' });
 });
-
-/* ET home page */
-router.get('/home', (req, res, next) =>
+*/
+/* ET home page
+indexRouter.get('/home', (req, res, next) =>
 {
 	let user = req.session.user;
 
@@ -33,9 +35,10 @@ router.get('/home', (req, res, next) =>
 	}
 	res.redirect('/');
 });
+*/
 
-/* POST login data */
-router.post('/login', (req, res, next) =>
+/* POST login data
+indexRouter.post('/login', (req, res, next) =>
 {
 	user.login(req.body.username, req.body.password, function(result)
     {
@@ -51,9 +54,11 @@ router.post('/login', (req, res, next) =>
 		  }
 	})
 });
+ */
 
-/* POST register data */
-router.post('/registration', (req, res, next) => {
+
+/* POST register data
+indexRouter.post('/registration', (req, res, next) => {
 	let userInput = {
 		username: req.body.username,
 		fullname: req.body.fullname,
@@ -77,9 +82,11 @@ router.post('/registration', (req, res, next) => {
 		  }
 	});
 });
+ */
 
-/* LOGGOUT */
-router.get('/Loggout', (req, res, next) =>
+
+/* LOGOUT
+indexRouter.get('/Logout', (req, res, next) =>
 {
 	if(req.session.user)
 	{
@@ -90,4 +97,6 @@ router.get('/Loggout', (req, res, next) =>
 		res.redirect('/');
     });
 });
-module.exports = router;
+ */
+
+module.exports = indexRouter;

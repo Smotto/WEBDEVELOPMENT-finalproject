@@ -298,7 +298,7 @@ function connectToServer()
         // createImagePostsTable();
         // createCommentsTable();
 
-        insertRecord();
+        // insertRecord();
         // insertMultipleRecords();
         // insertCustomerNameAddress();
 
