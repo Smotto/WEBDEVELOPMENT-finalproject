@@ -12,7 +12,7 @@ router.get('/index', function(req, res, next) {
     res.redirect('/');
 });
 
-/* Get Index page */
+/* Get Index page
 router.get('/', (req, res, next) => {
     let user = req.session.user;
     if(user){
@@ -21,8 +21,8 @@ router.get('/', (req, res, next) => {
     }
     res.render('index', { title: 'Express' });
 });
-
-/* GET home page */
+*/
+/* GET home page
 router.get('/home', (req, res, next) => {
     let user = req.session.user;
 
@@ -32,44 +32,9 @@ router.get('/home', (req, res, next) => {
     }
     res.redirect('/');
 });
+*/
 
-/* POST login data */
-router.post('/login', (req, res, next) => {
-    user.login(req.body.username, req.body.password, function(result){
-        if(result){
-            req.session.user = result;
-            req.session.opp = 1;
-            res.redirect('/home');
-        }
-        else{
-            res.send('Username/Password is incorrect. Try again');
-        }
-    })
-});
-
-/* POST register data */
-router.post('/registration', (req, res, next) => {
-    let userInput = {
-        username: req.body.username,
-        fullname: req.body.fullname,
-        password: req.body.password
-    };
-
-    user.create(userInput, function(lastId) {
-        if(lastId) {
-            user.find(lastId, function(result) {
-                req.session.user = result;
-                req.session.opp = 0;
-                res.redirect('/home');
-            });
-        }
-        else {
-            console.log('Could not create a new user');
-        }
-    });
-});
-
-/* LOGOUT */
+/* LOGOUT
 router.get('/logout', (req, res, next) => {
     if(req.session.user){
         req.session.destroy(function(){
@@ -77,5 +42,6 @@ router.get('/logout', (req, res, next) => {
         });
     }
 });
+*/
 
 module.exports = router;

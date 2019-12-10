@@ -120,14 +120,28 @@ async function sendPostRequest(jsonString)
             method: 'POST', // or 'PUT'
             body: jsonString, // data can be `string` or {object}!
             headers: {'Content-Type': 'application/json'}
-        })
-            .then(response => response.json());
+        });
 
         const json = await response.json();
         console.log('Success:', JSON.stringify(json));
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+function postRequestXHR(jsonString)
+{
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/registration', true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState === 4 && xhr.status === 200)
+        {
+            console.log("State and Status: 4 and 200");
+        }
+    };
+    xhr.send(jsonString);
 }
 
 let tosPrivacyButton = document.getElementById("TOSPrivacyInput");
@@ -150,13 +164,13 @@ subButton.onclick = ((ev) =>
         regInformation.passWord = passWordInputReg.value;
         regInformation.email = emailInput.value;
         let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
-
         console.log(convertedJSObjectREGISTRATION);
 
+        // postRequestXHR(convertedJSObjectREGISTRATION);
         sendPostRequest(convertedJSObjectREGISTRATION);
 
-        alert("Success!");
-        window.location.replace("/index")
+        // alert("Success!");
+        // window.location.replace("/index")
     }
     else
     {

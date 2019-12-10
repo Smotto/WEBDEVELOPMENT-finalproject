@@ -13,5 +13,33 @@ registrationRouter.get('/', function(req, res)
     res.render('registration');
 });
 
+registrationRouter.post('/', function(req, res)
+{
+    console.log("Registration Post Request Received.")
+});
+
+/* POST register data
+router.post('/registration', (req, res, next) => {
+    let userInput = {
+        username: req.body.username,
+        fullname: req.body.fullname,
+        password: req.body.password
+    };
+
+    user.create(userInput, function(lastId) {
+        if(lastId) {
+            user.find(lastId, function(result) {
+                req.session.user = result;
+                req.session.opp = 0;
+                res.redirect('/home');
+            });
+        }
+        else {
+            console.log('Could not create a new user');
+        }
+    });
+});
+ */
+
 // If you don't export, nobody can import it :thinking:
 module.exports = registrationRouter;
