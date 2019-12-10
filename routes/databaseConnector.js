@@ -18,7 +18,6 @@ databaseConnector.getConnection((err, connection) => {
         console.log("Connection to database success!");
         connection.release();
     }
-    return;
 });
 
 databaseConnector.query = util.promisify(databaseConnector.query);
