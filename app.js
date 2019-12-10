@@ -15,7 +15,6 @@ const postimageRouter = require('./routes/postimage');
 const registrationRouter = require('./routes/registration');
 const viewpostRouter = require('./routes/viewpost');
 
-
 /* Template engine */
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
