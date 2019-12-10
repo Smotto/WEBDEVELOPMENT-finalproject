@@ -288,6 +288,15 @@ function rightJoin()
     RIGHT JOIN products ON users.favorite_product = products.id
      */
 }
+function fixWindowsDatabase()
+{
+    let sql = "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+    });
+}
+
 function connectToServer()
 {
     connection.connect(function(err) {
@@ -322,5 +331,6 @@ function connectToServer()
         // joinTables();
     });
 }
+
 connectToServer();
 

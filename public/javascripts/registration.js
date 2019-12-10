@@ -111,6 +111,25 @@ thirteenPlusButton.onchange = ((ev) =>
     console.log(ev);
 });
 
+async function sendPostRequest(jsonString)
+{
+    const url = '/registration';
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: jsonString, // data can be `string` or {object}!
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(response => response.json());
+
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 let tosPrivacyButton = document.getElementById("TOSPrivacyInput");
 tosPrivacyButton.required = true;
 let tosPrivacyButtonBool = false;
@@ -131,7 +150,11 @@ subButton.onclick = ((ev) =>
         regInformation.passWord = passWordInputReg.value;
         regInformation.email = emailInput.value;
         let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
+
         console.log(convertedJSObjectREGISTRATION);
+
+        sendPostRequest(convertedJSObjectREGISTRATION);
+
         alert("Success!");
         window.location.replace("/index")
     }

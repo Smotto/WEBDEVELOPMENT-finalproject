@@ -1,35 +1,58 @@
-var express = require('express');
-var router = express.Router();
-// const User = require('../routes/users');
-// const user = new User();
+const bcrypt = require('bcrypt');
+const databaseConnector = require('../routes/databaseConnector');
 
-/* GET users listing. */
-router.get('/', function(req, res)
-{
-    res.send('respond with a resource');
-});
+function Account() {};
 
-/*
-User.prototype = {
-	//finding user data w/ ID or username
-	find: function(user = null, callback)
-	{
-		// if user=ID || user=username
-		if(user)
-		{
-			var field = Number.isInteger(user) ? 'id' : 'username';
-		}
+Account.prototype = {
+    create: function(body, callback)
+    {
+        body.password = bcrypt.hashSync(body.password, 10);
 
-		let sql = 'SELECT * FROM users WHERE ${field} = ?';
+        var person = [];
 
-		pool.query(sql, user, function(err, result)
-        {
-			if(err) throw err;
-			callback(result);
-		});
-	},
+        for (prop in body){
+            person.push(prop);
+        }
 
-}
-*/
+        let sql = 'INSERT INTO users(username, email, password) VALUES (?, ?, ?)';
 
-module.exports = router;
+        databaseConnector.query(sql, person, function(err, lastId) {
+            if(err) throw err;
+            callback(lastId);
+        });
+    },
+
+    find: function(user = null, callback)
+    {
+        // if user=ID || user=username
+        if(user) {
+            var field = Number.isInteger(user) ? 'id' : 'username';
+        }
+
+        let sql = 'SELECT * FROM users WHERE ${field} = ?';
+
+        databaseConnector.query(sql, user, function(err, result) {
+            if(err) {
+                throw err;
+            }
+            callback(result);
+        });
+    },
+
+    login: function(username, password, callback)
+    {
+        this.find(username, function(account) {
+            if(account) {
+                if(bcrypt.compareSync(password, account.password)){
+                    callback(account);
+                    return;
+                }
+            }
+            callback(null);
+
+        });
+    }
+};
+
+
+module.exports = Account;
