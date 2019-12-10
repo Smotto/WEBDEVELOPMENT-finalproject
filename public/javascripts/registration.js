@@ -111,7 +111,8 @@ thirteenPlusButton.onchange = ((ev) =>
     console.log(ev);
 });
 
-async function sendPostRequest(jsonString)
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+async function sendPostRequestREG(jsonString)
 {
     const url = '/registration';
 
@@ -127,21 +128,6 @@ async function sendPostRequest(jsonString)
     } catch (error) {
         console.error('Error:', error);
     }
-}
-
-function postRequestXHR(jsonString)
-{
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/registration', true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState === 4 && xhr.status === 200)
-        {
-            console.log("State and Status: 4 and 200");
-        }
-    };
-    xhr.send(jsonString);
 }
 
 let tosPrivacyButton = document.getElementById("TOSPrivacyInput");
@@ -166,11 +152,10 @@ subButton.onclick = ((ev) =>
         let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
         console.log(convertedJSObjectREGISTRATION);
 
-        // postRequestXHR(convertedJSObjectREGISTRATION);
-        sendPostRequest(convertedJSObjectREGISTRATION);
+        sendPostRequestREG(convertedJSObjectREGISTRATION);
 
-        // alert("Success!");
-        // window.location.replace("/index")
+        alert("Success!");
+        window.location.replace("/index")
     }
     else
     {

@@ -14,7 +14,7 @@ loginRouter.get('/', function(req, res)
 });
 
 /* POST login data
-router.post('/login', (req, res, next) => {
+loginRouter.post('/login', (req, res, next) => {
     user.login(req.body.username, req.body.password, function(result){
         if(result){
             req.session.user = result;
@@ -28,5 +28,4 @@ router.post('/login', (req, res, next) => {
 });
 */
 
-// If you don't export, nobody can import it :thinking:
 module.exports = loginRouter;

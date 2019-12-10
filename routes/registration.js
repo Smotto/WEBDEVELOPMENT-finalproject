@@ -19,7 +19,7 @@ registrationRouter.post('/', function(req, res)
 });
 
 /* POST register data
-router.post('/registration', (req, res, next) => {
+registrationRouter.post('/registration', (req, res, next) => {
     let userInput = {
         username: req.body.username,
         fullname: req.body.fullname,
@@ -41,5 +41,4 @@ router.post('/registration', (req, res, next) => {
 });
  */
 
-// If you don't export, nobody can import it :thinking:
 module.exports = registrationRouter;

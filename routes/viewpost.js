@@ -13,5 +13,4 @@ viewpostRouter.get('/', function(req, res)
     res.render('viewpost', {title: 'Post Viewer'});
 });
 
-// If you don't export, nobody can import it :thinking:
 module.exports = viewpostRouter;

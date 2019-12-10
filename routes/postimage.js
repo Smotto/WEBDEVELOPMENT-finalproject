@@ -1,17 +1,21 @@
 const express = require('express');
-const loginRouter = express.Router();
+const postimageRouter = express.Router();
 
-loginRouter.use((req, res, next) =>
+postimageRouter.use((req, res, next) =>
 {
     console.log('Postimage middleware being used.');
     next();
 });
 
-loginRouter.get('/', function(req, res)
+postimageRouter.get('/', function(req, res)
 {
     console.log('postimage.mustache initialized');
-    res.render('postimage', {title: 'Post An Image'});
+    res.render('postimage');
 });
 
-// If you don't export, nobody can import it :thinking:
-module.exports = loginRouter;
+postimageRouter.post('/', function(req, res)
+{
+   console.log("postimage Post request received.")
+});
+
+module.exports = postimageRouter;
