@@ -239,14 +239,6 @@ fieldset button[id = registerEnter]
 {
     font-size: 90%;
 }
-fieldset input[type="checkbox"]
-{
-    cursor: pointer;
-    display: inline-flex;
-    margin: 0 auto;
-    width: 0;
-    height: 10px;
-}
 fieldset input[type="file"]
 {
 }
