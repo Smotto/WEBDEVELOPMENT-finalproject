@@ -8,7 +8,6 @@ indexRouter.get('/', (req, res) =>
 indexRouter.get('/index', (req, res) =>
 {
 	res.redirect('/');
-	res.render('index', {title: 'Home'});
 });
 
 /* Get Index page
