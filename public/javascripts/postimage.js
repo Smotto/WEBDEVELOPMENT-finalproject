@@ -117,7 +117,7 @@ subButton.onclick = ((ev) =>
         let postImageJSONString = JSON.stringify(postInformation);
         console.log(postImageJSONString);
 
-        // TODO: Make the image a blob, it has already had it's src assigned.
+        // TODO: Make the image a blob, it has already had its src assigned.
         // sendPostRequestPostImage(postImageJSONString);
         testBlob(img).then(response =>
         {

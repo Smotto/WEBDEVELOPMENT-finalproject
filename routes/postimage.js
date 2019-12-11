@@ -9,6 +9,8 @@ postimageRouter.use((req, res, next) =>
 
 postimageRouter.get('/', function(req, res)
 {
+    // TODO: If the user is not login, redirect to login page instead
+
     console.log('postimage.mustache initialized');
     res.render('postimage');
 });

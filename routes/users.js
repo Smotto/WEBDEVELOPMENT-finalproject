@@ -17,7 +17,10 @@ Account.prototype = {
         let sql = 'INSERT INTO users(username, email, password) VALUES (?, ?, ?)';
 
         databaseConnector.query(sql, person, function(err, lastId) {
-            if(err) throw err;
+            if(err)
+            {
+                throw err;
+            }
             callback(lastId);
         });
     },

@@ -1,5 +1,7 @@
 const express = require('express');
 const registrationRouter = express.Router();
+const Account = require('../routes/users');
+const user = new Account();
 
 registrationRouter.use((req, res, next) =>
 {
@@ -13,25 +15,24 @@ registrationRouter.get('/', function(req, res)
     res.render('registration');
 });
 
-registrationRouter.post('/', function(req, res)
+/* POST register data */
+registrationRouter.post('/', function(request, response)
 {
-    console.log("Registration Post Request Received.")
-});
-
-/* POST register data
-registrationRouter.post('/registration', (req, res, next) => {
+    console.log("Registration Post Request Received.");
     let userInput = {
-        username: req.body.username,
-        fullname: req.body.fullname,
-        password: req.body.password
+        username: request.body.username,
+        fullname: request.body.fullname,
+        password: request.body.password
     };
 
+    // TODO: Fix error
+    // Not a routing issue
     user.create(userInput, function(lastId) {
         if(lastId) {
             user.find(lastId, function(result) {
-                req.session.user = result;
-                req.session.opp = 0;
-                res.redirect('/home');
+                request.session.user = result;
+                request.session.opp = 0;
+                response.redirect('/index');
             });
         }
         else {
@@ -39,6 +40,5 @@ registrationRouter.post('/registration', (req, res, next) => {
         }
     });
 });
- */
 
 module.exports = registrationRouter;

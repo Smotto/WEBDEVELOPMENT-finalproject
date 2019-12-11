@@ -1,7 +1,7 @@
 const express = require('express');
 const Account = require('../routes/users');
 const router = express.Router();
-const user = new Account();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
