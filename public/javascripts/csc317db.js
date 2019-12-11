@@ -209,7 +209,7 @@ function orderByDesc()
         console.log(result);
     });
 }
-function deleteRecord(record = "userTEST")
+function deleteRecord(record = "username")
 {
     let sql = "DELETE FROM users WHERE username = " + mysql.escape(record);
     connection.query(sql, function (err, result) {
@@ -320,7 +320,7 @@ function connectToServer()
         // sortResult();
         // orderByDesc();
 
-        // deleteRecord();
+        deleteRecord();
         // deleteTableIfExists();
 
         // updateTable();

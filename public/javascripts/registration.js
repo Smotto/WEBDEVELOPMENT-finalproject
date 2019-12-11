@@ -147,8 +147,11 @@ subButton.onclick = ((ev) =>
         && thirteenPlusButtonBool && tosPrivacyButtonBool)
     {
         regInformation.userName = userNameInputReg.value;
+        console.log(regInformation.userName);
         regInformation.passWord = passWordInputReg.value;
+        console.log(regInformation.passWord);
         regInformation.email = emailInput.value;
+        console.log(regInformation.email);
         let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
         console.log(convertedJSObjectREGISTRATION);
 

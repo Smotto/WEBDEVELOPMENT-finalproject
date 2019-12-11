@@ -3,11 +3,17 @@ const registrationRouter = express.Router();
 const Account = require('../routes/users');
 const user = new Account();
 
-registrationRouter.use((req, res, next) =>
-{
-    console.log('Registration middleware being used.');
-    next();
-});
+/*
+registrationRouter.use(session({
+    cookieName: 'sessioncookie',
+    secret: 'photoapp',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 60 * 1000 * 30
+    }
+}));
+*/
 
 registrationRouter.get('/', function(req, res)
 {
@@ -19,10 +25,12 @@ registrationRouter.get('/', function(req, res)
 registrationRouter.post('/', function(request, response)
 {
     console.log("Registration Post Request Received.");
+
+    console.log(request.body.userName, request.body.email, request.body.passWord, 0);
     let userInput = {
-        username: request.body.username,
-        fullname: request.body.fullname,
-        password: request.body.password
+        username: request.body.userName,
+        email: request.body.email,
+        password: request.body.passWord
     };
 
     // TODO: Fix error
@@ -30,8 +38,13 @@ registrationRouter.post('/', function(request, response)
     user.create(userInput, function(lastId) {
         if(lastId) {
             user.find(lastId, function(result) {
+                console.log("result: ", result);
+                console.log(request.session.user);
+                console.log("Checkpoints 1");
                 request.session.user = result;
+                console.log("Checkpoints 2");
                 request.session.opp = 0;
+                console.log("Checkpoints 3");
                 response.redirect('/index');
             });
         }

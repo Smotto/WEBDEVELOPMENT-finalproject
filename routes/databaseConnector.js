@@ -1,5 +1,6 @@
 const util = require ('util');
 const mysql = require ('mysql');
+exports.mysql = mysql;
 
 const databaseConnector = mysql.createPool({
     host: 'localhost',
