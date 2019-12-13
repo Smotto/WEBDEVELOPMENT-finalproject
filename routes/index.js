@@ -8,7 +8,7 @@ let sess = appModule.sess;
 
 // Middleware function for sesssions
 router.use(session({
-    secret: 'photoapp',
+    secret: 'my-dirty-little-secret',
     // store: new MssqlStore(options), // see options below
     resave: false,
     saveUninitialized: false,
@@ -19,11 +19,19 @@ router.use(session({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    res.cookie('myFirstCookie', 'looks Good');
+    if (sess) { console.log("Current Session ID: " + sess.user); }
+
     res.render('index', { title: 'Express' });
 });
 /* GET home page redirection. */
 router.get('/index', function(req, res, next) {
     res.redirect('/');
+});
+/* Cookie removal. */
+router.get('/cookie', function(req, res, next) {
+    res.clearCookie('myFirstCookie');
+    res.send("Cookie Removed, check F12.")
 });
 
 router.get('/registration', function(req, res)
@@ -111,10 +119,18 @@ router.post('/postimage', function(req, res)
 
 /* LOGOUT */
 router.get('/logout', (req, res, next) => {
-    if(req.session.user){
-        req.session.destroy(function(){
-            res.redirect('/');
+    if(sess){
+        console.log("Logging out user ID: " + sess.user);
+        sess.destroy(function(){
+            console.log("Logout Successful!");
+            // TODO: When logged out, reset active in the database.
+            // TODO: What if the user just exits the browser? How do we reset active in the database?
+            res.render('logout');
         });
+    }
+    else
+    {
+        res.redirect('/');
     }
 });
 
