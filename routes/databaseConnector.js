@@ -10,12 +10,10 @@ const databaseConnector = mysql.createPool({
 });
 
 databaseConnector.getConnection((err, connection) => {
-    if(err)
-    {
+    if(err) {
         console.error("Error connecting to database");
     }
-    if(connection)
-    {
+    if(connection) {
         /*
         exports.options = {
             connection: connection,

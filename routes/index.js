@@ -1,15 +1,12 @@
 const express = require('express');
-const session = require('express-session');
 const Account = require('../routes/users');
-const appModule = require('../app');
 const router = express.Router();
 let user = new Account();
-let sess = appModule.sess;
+const session = require('express-session');
 
-// Middleware function for sesssions
 router.use(session({
     secret: 'my-dirty-little-secret',
-    // store: new MssqlStore(options), // see options below
+    // store: new MssqlStore(options), // see options variable
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -17,47 +14,56 @@ router.use(session({
     }
 }));
 
+function createCookie(req, res) {
+    return new Promise((resolve, reject) => {
+        console.log(req.session.user);
+        // TODO: If there is already a session which has the cookie? Make it so there's only 1 login at a time.
+        if (req.session.user !== 'undefined') {
+            console.log('Cookie Created!');
+            console.log("Your Cookie ID: " + req.session.user);
+            resolve(res.cookie('UserID', req.session.user));
+        }
+        else {
+            reject(console.log('Not allowed to create the cookie.'));
+        }
+    });
+}
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.cookie('myFirstCookie', 'looks Good');
-    if (sess) { console.log("Current Session ID: " + sess.user); }
+router.get('/', (req, res, next) => {
+    console.log('Cookies: ', req.cookies);
+
+    if (req.session.user) { console.log("Current Session ID: " + req.session.user); }
 
     res.render('index', { title: 'Express' });
 });
 /* GET home page redirection. */
-router.get('/index', function(req, res, next) {
+router.get('/index', (req, res, next) => {
     res.redirect('/');
 });
 /* Cookie removal. */
-router.get('/cookie', function(req, res, next) {
-    res.clearCookie('myFirstCookie');
-    res.send("Cookie Removed, check F12.")
+router.get('/cookie', (req, res, next) => {
+    res.clearCookie(req.session.user);
+    res.send("Cookie Removed, check F12.");
 });
-
-router.get('/registration', function(req, res)
-{
-    console.log('registration.mustache initialized');
+/* GET Register Page */
+router.get('/registration', (req, res) => {
     res.render('registration');
 });
-
 /* POST register data */
-router.post('/registration', function(req, res){
+router.post('/registration', (req, res) => {
     let userInput = {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
     };
-    sess = req.session;
-    console.log(sess);
 
-    user.create(userInput, function(lastId) {
+    user.create(userInput, (lastId) => {
         if(lastId) {
-            console.log("user pass 1");
-            user.find(lastId, function(result) {
-                console.log("user pass 2");
-                sess.user = result[0].id;
+            user.find(lastId, (result) => {
+                req.session.user = result[0].id;
                 // TODO: Set Active to 0 in database
-                sess.opp = 0;
+                req.session.opp = 0;
                 res.send('Welcome'+ userInput.username);
             });
         }
@@ -68,24 +74,24 @@ router.post('/registration', function(req, res){
 });
 
 /* Get login page */
-router.get('/login', function(req, res)
+router.get('/login', (req, res) =>
 {
     console.log('login.mustache initialized');
+
     res.render('login');
 });
 /* POST login data */
-router.post('/login', function(req, res, next) {
-    console.log('Login Post Request Received');
-    console.log("Request: ", req.body.username, req.body.password);
+router.post('/login', (req, res, next) => {
+    console.log('Login Post Request Received ... ', "Requesting: ", req.body.username, req.body.password);
+    console.log(req.session);
 
-    sess = req.session;
-
-    user.login(req.body.username, req.body.password, function(result){
+    user.login(req.body.username, req.body.password, (result) => {
         if(result){
-            sess.user = result[0].id;
-            sess.opp = 1;
+            req.session.user = result[0].id;
+            req.session.opp = 1;
             console.log('Logged in as: '+ req.session.user);
-
+            // TODO: Cookie not being created?
+            createCookie(req, res);
             // res.redirect('localhost:3000/');
         }
         else{
@@ -93,43 +99,38 @@ router.post('/login', function(req, res, next) {
             res.send('Username/Password is incorrect. Try again');
         }
     });
-
 });
 
 /* View Singular Post */
-router.get('/viewpost', function(req, res)
-{
+router.get('/viewpost', (req, res) => {
     console.log('viewpost.mustache initialized');
     res.render('viewpost', {title: 'Post Viewer'});
 });
 
 /* View Post Image Page */
-router.get('/postimage', function(req, res)
-{
+router.get('/postimage', (req, res) => {
     // TODO: If the user is not login, redirect to login page instead
     console.log('postimage.mustache initialized');
     res.render('postimage');
 });
 
 /* Post an Image */
-router.post('/postimage', function(req, res)
-{
+router.post('/postimage', (req, res) => {
     console.log("postimage Post request received.")
 });
 
 /* LOGOUT */
 router.get('/logout', (req, res, next) => {
-    if(sess){
-        console.log("Logging out user ID: " + sess.user);
-        sess.destroy(function(){
+    if(req.session){
+        console.log("Logging out user ID: " + req.session.user);
+        req.session.destroy(() => {
             console.log("Logout Successful!");
             // TODO: When logged out, reset active in the database.
             // TODO: What if the user just exits the browser? How do we reset active in the database?
             res.render('logout');
         });
     }
-    else
-    {
+    else {
         res.redirect('/');
     }
 });

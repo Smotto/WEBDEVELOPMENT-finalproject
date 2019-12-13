@@ -1,12 +1,11 @@
-// Must have mustache, express-session, cookie-parser, morgan, path, express.
 const express = require('express');
 const mustache = require('mustache-express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const logger = require('morgan');
 const app = express();
 
-/* Routers */
+/* Router Variables */
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -15,17 +14,16 @@ app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
 app.set('views', ['./public/views']);
 
+/* App Uses */
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* App Routes */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-let sess = null;
-exports.sess = sess;
 
 /* Error 404 */
 app.use((req, res, next) => {
@@ -33,7 +31,6 @@ app.use((req, res, next) => {
 	err.status = 404;
 	next(err);
 });
-
 /* Handling error */
 app.use((err, req, res, next) => {
 	res.status(err.status || 500);
