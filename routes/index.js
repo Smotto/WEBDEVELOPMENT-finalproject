@@ -8,7 +8,7 @@ router.use(session({
     secret: 'my-dirty-little-secret',
     // store: new MssqlStore(options), // see options variable
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie:{originalMaxAge: 60 * 1000 * 30}
 }));
 
@@ -41,7 +41,7 @@ router.post('/registration', (req, res) => {
             user.find(lastId, (result) => {
                 req.session.user = result[0].id;
                 // TODO: Set Active to 0 in database
-                req.session.opp = 0;
+                req.session.active = 0;
                 res.json('Welcome '+ userInput.username + '!');
             });
         }
@@ -61,10 +61,12 @@ router.post('/login', (req, res, next) => {
 
     user.login(req.body.username, req.body.password, (result) => {
         if(result){
+            // TODO: Made the session, but didn't create the user's cookie
             req.session.user = result[0].id;
-            req.session.opp = 1;
+            req.session.active = 1;
             console.log(req.session);
             console.log('Logged in as: '+ req.session.user);
+            res.json("This might be it");
             // res.redirect('localhost:3000/');
         }
         else{
