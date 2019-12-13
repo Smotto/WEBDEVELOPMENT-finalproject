@@ -95,7 +95,7 @@ router.post('/postimage', (req, res) => {
 
 /* LOGOUT */
 router.get('/logout', (req, res, next) => {
-    if(req.session){
+    if(req.session.user){
         console.log("Logging out user ID: " + req.session.user);
         req.session.destroy(() => {
             console.log("Logout Successful!");
