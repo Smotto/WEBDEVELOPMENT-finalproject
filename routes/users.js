@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const databaseConnector = require('../routes/databaseConnector');
-const mysql = databaseConnector.mysql;
 
 function Account() {};
 
@@ -29,21 +28,28 @@ Account.prototype = {
             var field = Number.isInteger(user) ? 'id' : 'username';
         }
         let sql = `SELECT * FROM users WHERE ${field} = ?`;
-
+        console.log("PASS find function() Checkpoint 1");
         databaseConnector.query(sql, user, function(err, result) {
             if(err) throw err;
             if(result.length)
             {
-                callback(result[0].id);
+                callback(result);
+            }
+            else
+            {
+                callback(null);
             }
         });
     },
 
     login: function(username, password, callback)
     {
+        console.log("login function activated");
         this.find(username, function(account) {
             if(account) {
-                if(bcrypt.compareSync(password, account.password)){
+                console.log("Account found.");
+                console.log("Password Hash: " + account[0].password);
+                if(bcrypt.compareSync(password, account[0].password)){
                     callback(account);
                     return;
                 }

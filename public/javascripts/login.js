@@ -34,7 +34,6 @@ function userNameInputOnChange(userNameInput)
 }
 userNameInputOnChange(userNameInput);
 
-
 let passWordInput = document.getElementById("passWordInput");
 passWordInput.required = true;
 let passwordBoolean = false;
@@ -57,16 +56,35 @@ passWordInput.onchange = ((ev) =>
     console.log(ev);
 });
 
+async function sendPostRequest(jsonString, url)
+{
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: jsonString, // data can be `string` or {object}!
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 let subButton = document.getElementById('loginEnter');
 let loginInformation = {};
 subButton.onclick = ((ev) =>
 {
     if (userBoolean && passwordBoolean)
     {
-        loginInformation.userName = userNameInput.value;
-        loginInformation.passWord = passWordInput.value;
+        loginInformation.username = userNameInput.value;
+        loginInformation.password = passWordInput.value;
         let convertedJSObject = JSON.stringify(loginInformation);
         console.log(convertedJSObject);
+
+        sendPostRequest(convertedJSObject, '/login');
+
         //alert("Success!");
         //window.location.replace("/index")
     }

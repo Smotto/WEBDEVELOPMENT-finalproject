@@ -112,10 +112,8 @@ thirteenPlusButton.onchange = ((ev) =>
 });
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-async function sendPostRequestREG(jsonString)
+async function sendPostRequest(jsonString, url)
 {
-    const url = '/registration';
-
     try {
         const response = await fetch(url, {
             method: 'POST', // or 'PUT'
@@ -146,16 +144,13 @@ subButton.onclick = ((ev) =>
     if (userNameInputRegBool && emailInputBool && passWordConfirmationBooleanReg && passWordBooleanReg
         && thirteenPlusButtonBool && tosPrivacyButtonBool)
     {
-        regInformation.userName = userNameInputReg.value;
-        console.log(regInformation.userName);
-        regInformation.passWord = passWordInputReg.value;
-        console.log(regInformation.passWord);
+        regInformation.username = userNameInputReg.value;
+        regInformation.password = passWordInputReg.value;
         regInformation.email = emailInput.value;
-        console.log(regInformation.email);
         let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
         console.log(convertedJSObjectREGISTRATION);
 
-        sendPostRequestREG(convertedJSObjectREGISTRATION);
+        sendPostRequest(convertedJSObjectREGISTRATION, '/registration');
 
         //alert("Success!");
         //window.location.replace("/index")

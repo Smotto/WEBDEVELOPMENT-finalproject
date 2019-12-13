@@ -5,7 +5,7 @@ exports.mysql = mysql;
 const databaseConnector = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'csc317db'
 });
 
@@ -16,6 +16,16 @@ databaseConnector.getConnection((err, connection) => {
     }
     if(connection)
     {
+        /*
+        exports.options = {
+            connection: connection,
+            // Time to live in seconds.
+            ttl: 3600,
+            // Interval to destroy expired sessions in seconds.
+            reapInterval: 3600,
+            reapCallback: function() { console.log('expired sessions were removed');}
+        };
+         */
         console.log("Connection to database success!");
         connection.release();
     }
