@@ -12,27 +12,10 @@ router.use(session({
     cookie:{originalMaxAge: 60 * 1000 * 30}
 }));
 
-async function createCookie(req, res) {
-   try{
-       // TODO: If there is already a session which has the cookie? Make it so there's only 1 login at a time.
-       if (req.session.user !== 'undefined') {
-           console.log('Cookie Created!');
-           console.log("Your Cookie ID: " + req.session.user);
-           res.cookie('UserID', req.session.user);
-           res.end();
-       }
-       else {
-           console.log('Not allowed to create the cookie.');
-       }
-   } catch (error)
-   {
-       console.log(error);
-   }
-}
-
 /* GET home page. */
 router.get('/', (req, res, next) => {
     console.log('Cookies: ', req.cookies);
+    console.log(req.session);
     if (req.session.user) { console.log("Current Session ID: " + req.session.user); }
     res.render('index', { title: 'Home' , success: req.session.success, errors: req.session.errors});
     req.session.errors = null;
@@ -40,11 +23,6 @@ router.get('/', (req, res, next) => {
 /* GET home page redirection. */
 router.get('/index', (req, res, next) => {
     res.redirect('/');
-});
-/* Cookie removal. */
-router.get('/cookie', (req, res, next) => {
-    res.clearCookie(req.session.user);
-    res.send("Cookie Removed, check F12.");
 });
 /* GET Register Page */
 router.get('/registration', (req, res) => {
@@ -87,8 +65,6 @@ router.post('/login', (req, res, next) => {
             req.session.opp = 1;
             console.log(req.session);
             console.log('Logged in as: '+ req.session.user);
-            // TODO: Cookie not being created?
-            createCookie(req, res).then();
             // res.redirect('localhost:3000/');
         }
         else{
@@ -110,7 +86,6 @@ router.get('/postimage', (req, res) => {
     console.log('postimage.mustache initialized');
     res.render('postimage');
 });
-
 /* Post an Image */
 router.post('/postimage', (req, res) => {
     console.log("postimage Post request received.")
