@@ -69,7 +69,11 @@ subButton.onclick = ((ev) => {
         let convertedJSObject = JSON.stringify(loginInformation);
         console.log(convertedJSObject);
 
-        sendPostRequest(convertedJSObject, '/login');
+        sendPostRequest(convertedJSObject, '/login').then(processResponse => {
+            console.log(processResponse)
+        }).catch(err => {
+            console.log(err);
+        });
 
         //alert("Success!");
         //window.location.replace("/index")

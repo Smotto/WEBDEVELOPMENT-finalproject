@@ -9,33 +9,33 @@ router.use(session({
     // store: new MssqlStore(options), // see options variable
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        maxAge: 60 * 1000 * 30
-    }
+    cookie:{originalMaxAge: 60 * 1000 * 30}
 }));
 
-function createCookie(req, res) {
-    return new Promise((resolve, reject) => {
-        console.log(req.session.user);
-        // TODO: If there is already a session which has the cookie? Make it so there's only 1 login at a time.
-        if (req.session.user !== 'undefined') {
-            console.log('Cookie Created!');
-            console.log("Your Cookie ID: " + req.session.user);
-            resolve(res.cookie('UserID', req.session.user));
-        }
-        else {
-            reject(console.log('Not allowed to create the cookie.'));
-        }
-    });
+async function createCookie(req, res) {
+   try{
+       // TODO: If there is already a session which has the cookie? Make it so there's only 1 login at a time.
+       if (req.session.user !== 'undefined') {
+           console.log('Cookie Created!');
+           console.log("Your Cookie ID: " + req.session.user);
+           res.cookie('UserID', req.session.user);
+           res.end();
+       }
+       else {
+           console.log('Not allowed to create the cookie.');
+       }
+   } catch (error)
+   {
+       console.log(error);
+   }
 }
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
     console.log('Cookies: ', req.cookies);
-
     if (req.session.user) { console.log("Current Session ID: " + req.session.user); }
-
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Home' , success: req.session.success, errors: req.session.errors});
+    req.session.errors = null;
 });
 /* GET home page redirection. */
 router.get('/index', (req, res, next) => {
@@ -74,28 +74,25 @@ router.post('/registration', (req, res) => {
 });
 
 /* Get login page */
-router.get('/login', (req, res) =>
-{
-    console.log('login.mustache initialized');
-
+router.get('/login', (req, res) => {
     res.render('login');
 });
 /* POST login data */
 router.post('/login', (req, res, next) => {
     console.log('Login Post Request Received ... ', "Requesting: ", req.body.username, req.body.password);
-    console.log(req.session);
 
     user.login(req.body.username, req.body.password, (result) => {
         if(result){
             req.session.user = result[0].id;
             req.session.opp = 1;
+            console.log(req.session);
             console.log('Logged in as: '+ req.session.user);
             // TODO: Cookie not being created?
-            createCookie(req, res);
+            createCookie(req, res).then();
             // res.redirect('localhost:3000/');
         }
         else{
-            console.log("Didn't get it.");
+            console.log("Didn't get the account.");
             res.send('Username/Password is incorrect. Try again');
         }
     });

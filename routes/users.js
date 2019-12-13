@@ -21,7 +21,6 @@ Account.prototype = {
                 if(user) {
                     let field = Number.isInteger(user) ? 'id' : 'username';
                     let sql = `SELECT * FROM users WHERE ${field} = ?`;
-                    console.log("Await started.");
                     // TODO: When I send too many requests, it just stops
                     await databaseConnector.query(sql, user, (err, result) => {
                         console.log("Awaiting...");
