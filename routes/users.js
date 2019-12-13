@@ -27,29 +27,34 @@ Account.prototype = {
         if(user) {
             var field = Number.isInteger(user) ? 'id' : 'username';
         }
+
         let sql = `SELECT * FROM users WHERE ${field} = ?`;
-        console.log("PASS find function() Checkpoint 1");
+
         databaseConnector.query(sql, user, function(err, result) {
             if(err) throw err;
             if(result.length)
             {
                 callback(result);
             }
-            else
-            {
-                callback(null);
-            }
         });
     },
 
     login: function(username, password, callback)
     {
-        console.log("login function activated");
+        console.log("Account login function activated.");
         this.find(username, function(account) {
             if(account) {
                 console.log("Account found.");
-                console.log("Password Hash: " + account[0].password);
-                if(bcrypt.compareSync(password, account[0].password)){
+                // && account[0].active !== 1
+                if(bcrypt.compareSync(password, account[0].password )){
+                    // TODO: When server fires up, should active be reset?
+                    // TODO: Prone to sql injection
+                    let sql = `UPDATE users SET active = 1 WHERE username = '${account[0].username}'`;
+                    databaseConnector.query(sql, function (err, result) {
+                        if (err) throw err;
+                        console.log(result.affectedRows + " record(s) updated");
+                    });
+
                     callback(account);
                     return;
                 }

@@ -1,6 +1,5 @@
 // Must have mustache, express-session, cookie-parser, morgan, path, express.
 const express = require('express');
-const session = require('express-session');
 const mustache = require('mustache-express');
 const path = require('path');
 const cookieParser = require('cookie-parser');

@@ -68,19 +68,17 @@ router.get('/login', function(req, res)
 /* POST login data */
 router.post('/login', function(req, res, next) {
     console.log('Login Post Request Received');
-    console.log( req.body.username, req.body.password, 0);
+    console.log("Request: ", req.body.username, req.body.password);
 
     sess = req.session;
 
     user.login(req.body.username, req.body.password, function(result){
         if(result){
             sess.user = result[0].id;
-            console.log(result);
-            // TODO: Set active to 1 in database.
             sess.opp = 1;
             console.log('Logged in as: '+ req.session.user);
 
-            res.redirect('/index');
+            // res.redirect('localhost:3000/');
         }
         else{
             console.log("Didn't get it.");
