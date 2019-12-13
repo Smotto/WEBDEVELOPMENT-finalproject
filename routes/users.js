@@ -29,8 +29,7 @@ Account.prototype = {
                             console.log("Awaiting is finished. Account Found!");
                             callback(result);
                         }
-                        else
-                        {
+                        else {
                             console.log("Awaiting is finished, couldn't find the account.")
                         }
                     });

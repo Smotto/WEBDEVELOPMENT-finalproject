@@ -8,7 +8,7 @@ router.use(session({
     secret: 'my-dirty-little-secret',
     // store: new MssqlStore(options), // see options variable
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie:{originalMaxAge: 60 * 1000 * 30}
 }));
 
@@ -42,7 +42,7 @@ router.post('/registration', (req, res) => {
                 req.session.user = result[0].id;
                 // TODO: Set Active to 0 in database
                 req.session.opp = 0;
-                res.send('Welcome'+ userInput.username);
+                res.json('Welcome '+ userInput.username + '!');
             });
         }
         else {
@@ -69,7 +69,7 @@ router.post('/login', (req, res, next) => {
         }
         else{
             console.log("Didn't get the account.");
-            res.send('Username/Password is incorrect. Try again');
+            res.json('Username/Password is incorrect. Try again');
         }
     });
 });
