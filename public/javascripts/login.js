@@ -70,13 +70,12 @@ subButton.onclick = ((ev) => {
         console.log(convertedJSObject);
 
         sendPostRequest(convertedJSObject, '/login').then(processResponse => {
-            console.log(processResponse)
+            console.log(processResponse);
+            alert("Success!");
+            window.location.replace("/index")
         }).catch(err => {
             console.log(err);
         });
-
-        //alert("Success!");
-        //window.location.replace("/index")
     }
     else {
         console.log(userBoolean);

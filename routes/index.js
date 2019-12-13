@@ -2,23 +2,13 @@ const express = require('express');
 const Account = require('../routes/users');
 const router = express.Router();
 let user = new Account();
-const session = require('express-session');
-
-router.use(session({
-    secret: 'my-dirty-little-secret',
-    // store: new MssqlStore(options), // see options variable
-    resave: false,
-    saveUninitialized: false,
-    cookie:{originalMaxAge: 60 * 1000 * 30}
-}));
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
     console.log('Cookies: ', req.cookies);
     console.log(req.session);
     if (req.session.user) { console.log("Current Session ID: " + req.session.user); }
-    res.render('index', { title: 'Home' , success: req.session.success, errors: req.session.errors});
-    req.session.errors = null;
+    res.render('index');
 });
 /* GET home page redirection. */
 router.get('/index', (req, res, next) => {
@@ -26,7 +16,13 @@ router.get('/index', (req, res, next) => {
 });
 /* GET Register Page */
 router.get('/registration', (req, res) => {
-    res.render('registration');
+    if (req.session.user) {
+        res.render('index');
+    }
+    else
+    {
+        res.render('registration');
+    }
 });
 /* POST register data */
 router.post('/registration', (req, res) => {
@@ -53,27 +49,40 @@ router.post('/registration', (req, res) => {
 
 /* Get login page */
 router.get('/login', (req, res) => {
-    res.render('login');
+    if (req.session.user) {
+        res.render('index');
+    }
+    else {
+        res.render('login');
+    }
+
 });
 /* POST login data */
 router.post('/login', (req, res, next) => {
     console.log('Login Post Request Received ... ', "Requesting: ", req.body.username, req.body.password);
 
-    user.login(req.body.username, req.body.password, (result) => {
-        if(result){
-            // TODO: Made the session, but didn't create the user's cookie
-            req.session.user = result[0].id;
-            req.session.active = 1;
-            console.log(req.session);
-            console.log('Logged in as: '+ req.session.user);
-            res.json("This might be it");
-            // res.redirect('localhost:3000/');
-        }
-        else{
-            console.log("Didn't get the account.");
-            res.json('Username/Password is incorrect. Try again');
-        }
-    });
+    if (req.session.user) {
+        console.log("Already logged, also you shouldn't see this at all.");
+        res.json("Shawty you're already logged in.");
+        res.render('index');
+    }
+    else {
+        user.login(req.body.username, req.body.password, (result) => {
+            if(result){
+                // TODO: Made the session, but didn't create the user's cookie
+                req.session.user = result[0].id;
+                req.session.active = 1;
+                console.log(req.session);
+                console.log('Logged in as: '+ req.session.user);
+                res.json("This might be it");
+                // res.redirect('localhost:3000/');
+            }
+            else{
+                console.log("Didn't get the account.");
+                res.json('Username/Password is incorrect. Try again');
+            }
+        });
+    }
 });
 
 /* View Singular Post */
@@ -85,8 +94,15 @@ router.get('/viewpost', (req, res) => {
 /* View Post Image Page */
 router.get('/postimage', (req, res) => {
     // TODO: If the user is not login, redirect to login page instead
-    console.log('postimage.mustache initialized');
-    res.render('postimage');
+    if (req.session.user) {
+        console.log('postimage.mustache initialized');
+        res.render('postimage');
+    }
+    else{
+        console.log("You are not in a session.");
+        res.render('index');
+    }
+
 });
 /* Post an Image */
 router.post('/postimage', (req, res) => {

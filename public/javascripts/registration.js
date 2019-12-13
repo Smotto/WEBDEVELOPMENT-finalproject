@@ -130,10 +130,13 @@ subButton.onclick = ((ev) => {
         let convertedJSObjectREGISTRATION = JSON.stringify(regInformation);
         console.log(convertedJSObjectREGISTRATION);
 
-        sendPostRequest(convertedJSObjectREGISTRATION, '/registration');
-
-        //alert("Success!");
-        //window.location.replace("/index")
+        sendPostRequest(convertedJSObjectREGISTRATION, '/registration').then(processResponse => {
+            console.log(processResponse);
+            alert("Success!");
+            window.location.replace("/index")
+        }).catch(err => {
+            console.log(err);
+        });
     }
     else {
         console.log(userNameInputRegBool);

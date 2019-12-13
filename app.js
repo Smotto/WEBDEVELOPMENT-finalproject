@@ -9,6 +9,17 @@ const app = express();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+/* Sessions */
+const session = require('express-session');
+app.use(session({
+	secret: 'my-dirty-little-secret',
+	// store: new MssqlStore(options), // see options variable
+	resave: false,
+	saveUninitialized: false,
+	cookie:{originalMaxAge: 60 * 1000 * 30},
+	limit: '5mb'
+}));
+
 /* Template engine */
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
