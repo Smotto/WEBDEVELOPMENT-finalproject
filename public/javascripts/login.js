@@ -67,8 +67,8 @@ subButton.onclick = ((ev) =>
         loginInformation.passWord = passWordInput.value;
         let convertedJSObject = JSON.stringify(loginInformation);
         console.log(convertedJSObject);
-        alert("Success!");
-        window.location.replace("/index")
+        //alert("Success!");
+        //window.location.replace("/index")
     }
     else
     {

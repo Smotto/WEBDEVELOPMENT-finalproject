@@ -157,8 +157,8 @@ subButton.onclick = ((ev) =>
 
         sendPostRequestREG(convertedJSObjectREGISTRATION);
 
-        alert("Success!");
-        window.location.replace("/index")
+        //alert("Success!");
+        //window.location.replace("/index")
     }
     else
     {

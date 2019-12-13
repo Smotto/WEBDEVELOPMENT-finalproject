@@ -8,10 +8,10 @@ const User = new Account();
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
-/* GET home page. */
+/* GET home page.
 router.get('/index', function(req, res, next) {
     res.redirect('/');
-});
+});*/
 
 /* Get Index page
 router.get('/', (req, res, next) => {

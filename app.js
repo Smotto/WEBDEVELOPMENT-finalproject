@@ -39,7 +39,6 @@ app.use('/viewpost', viewpostRouter);
 
 /* session */
 app.use(session({
-    cookieName: 'sessioncookie',
 	secret: 'photoapp',
 	resave: false,
 	saveUninitialized: false,
