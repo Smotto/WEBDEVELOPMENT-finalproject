@@ -3,19 +3,11 @@
     <form>
         <fieldset>
             <label class = "postInformation">
-                <a href = "viewpost"><img src = "images/SpongeWaveAnimation.gif"></a>
+                {{{ body }}}
             </label>
-            <div class = commentBlock>Author should be here.
-                <p>
-                    Comments should be here.
-                </p>
-            </div>
-            <div class = commentBlock>Author should be here.
-                <p>
-                    Comments should be here.
-                </p>
-            </div>
-
+                {{# each anyArray as |val key|}}
+                    {{ key}} : {{ val }}
+                {{/each}}
         </fieldset>
     </form>
 </div>

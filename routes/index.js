@@ -20,13 +20,6 @@ router.get('/index', (req, res, next) => {
     res.redirect('/');
 });
 
-/* Search for images */
-router.post('/search', (req, res, next) =>
-{
-   console.log('Search request received.');
-   console.log("This is the title request: " + req.body.info);
-});
-
 /* GET Register Page */
 router.get('/registration', (req, res) => {
     if (req.session.user) {
@@ -98,10 +91,28 @@ router.post('/login', (req, res, next) => {
     }
 });
 
-/* View Singular Post */
+/* Search for images */
+router.post('/search', (req, res, next) =>
+{
+    console.log('Search request received.');
+    console.log("This is the title request: " + req.body.info);
+    // TODO: Send this request to the backend.
+    // From the frontend, a request is sent here,
+    // we respond with the data to the front end, and
+    // then in the frontend redirect to the appropriate viewpost/:userID/:postID with the data.
+});
+/* View Post */
 router.get('/viewpost', (req, res) => {
-    console.log('viewpost.hbs initialized');
-    res.render('viewpost', {title: 'Post Viewer'});
+    res.render('viewpost', {title: 'Post Viewer', body: "Use the search bar above to find a post!"});
+});
+/* View Singular Post */
+router.get('/viewpost/:userID/:postID', (req, res) => {
+    // TODO: Get information from database, and render the page based on the information from the database.
+    let userID;
+    let postID;
+    let commentsArrayOrSomething;
+
+    res.render('viewpost', {title: 'Post Viewer', body: "viewpost body.", anyArray: ['a!', 'b@', 'c?']});
 });
 
 /* View Post Image Page */
@@ -117,6 +128,7 @@ router.get('/postimage', (req, res) => {
     }
 
 });
+
 /* Post an Image */
 router.post('/postimage', (req, res) => {
     console.log("postimage Post request received.");
