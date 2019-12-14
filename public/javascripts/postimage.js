@@ -87,12 +87,10 @@ subButton.onclick = ((ev) => {
             console.log(response);
             // TODO: Instead of alerts could do injections into the mustache so it's not invasive.
             // TODO: Have a timer for redirection.
-            alert("Success! Click ok to view your post!");
-            // TODO: Inject image from database into viewpost.mustache, and also inject comments from database
-            window.location.replace('/viewpost');
+            // alert("Success! Click ok to view your post!");
+            // TODO: Inject image from database into viewpost.hbs, and also inject comments from database
+            // window.location.replace(`/viewpost/${response.userID, response.postID}`);
         });
-
-
     }
     else {
         console.log(postTitleBool);

@@ -93,7 +93,7 @@ router.post('/login', (req, res, next) => {
 
 /* View Singular Post */
 router.get('/viewpost', (req, res) => {
-    console.log('viewpost.mustache initialized');
+    console.log('viewpost.hbs initialized');
     res.render('viewpost', {title: 'Post Viewer'});
 });
 
@@ -101,7 +101,7 @@ router.get('/viewpost', (req, res) => {
 router.get('/postimage', (req, res) => {
     // TODO: If the user is not login, redirect to login page instead
     if (req.session.user) {
-        console.log('postimage.mustache initialized');
+        console.log('postimage.hbs initialized');
         res.render('postimage');
     }
     else{
@@ -118,7 +118,7 @@ router.post('/postimage', (req, res) => {
             title: req.body.title,
             description: req.body.description,
             imageURL: req.body.imageURL,
-            fk_userid: req.session.user.id
+            fk_userid: req.session.user
         };
 
         var file = req.files.imageURL;

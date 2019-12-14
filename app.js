@@ -1,11 +1,10 @@
 const express = require('express');
-const mustache = require('mustache-express');
+const hbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const logger = require('morgan');
 const app = express();
 const fileUpload = require('express-fileupload');
-const mysql = require('mysql');
 
 /* Router Variables */
 const indexRouter = require('./routes/index');
@@ -23,9 +22,9 @@ app.use(session({
 }));
 
 /* Template engine */
-app.engine('mustache', mustache());
-app.set('view engine', 'mustache');
-app.set('views', ['./public/views']);
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts'}));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 /* App Uses */
 app.use(logger('dev'));
@@ -33,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload());
+app.use(fileUpload({}));
 
 /* App Routes */
 app.use('/', indexRouter);
