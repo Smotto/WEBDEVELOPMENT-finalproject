@@ -20,6 +20,13 @@ router.get('/index', (req, res, next) => {
     res.redirect('/');
 });
 
+/* Search for images */
+router.post('/search', (req, res, next) =>
+{
+   console.log('Search request received.');
+   console.log("This is the title request: " + req.body.info);
+});
+
 /* GET Register Page */
 router.get('/registration', (req, res) => {
     if (req.session.user) {

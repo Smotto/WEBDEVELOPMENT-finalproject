@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/pureStyleSheet.css">
     <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+    <script type="text/javascript" defer src = "/javascripts/searchimage.js"></script>
     <title>{{title}}</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
             <li><a class = "logout-btn" href = "logout">Logout</a></li>
             <li><a class = "register-btn" href = "registration"><span>Register</span></a></li>
             <li><a class = "postImage-btn" href = "postimage"><i class="fa fa-camera"></i>Post</a></li>
-            <li><label class = "search-post"><i class="fa fa-search"></i>Search Post<input type = "text" placeholder = "title"></label></li>
+            <li><label class = "search-post"><i class="fa fa-search"></i>Search Post<input id = "search-bar" type = "text" placeholder = "title"></label></li>
         </ul>
     </div>
     {{{ body }}}
