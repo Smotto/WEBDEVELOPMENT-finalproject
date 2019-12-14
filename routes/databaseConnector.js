@@ -11,7 +11,7 @@ const databaseConnector = mysql.createPool({
 
 databaseConnector.getConnection((err, connection) => {
     if(err) {
-        console.error("Error connecting to database");
+        console.error("Error connecting to database, check config in databaseConnector.js");
     }
     if(connection) {
         /*
