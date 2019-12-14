@@ -60,9 +60,8 @@ async function sendPostRequest(jsonString, url) {
     }
 }
 
-let subButton = document.getElementById('loginEnter');
-let loginInformation = {};
-subButton.onclick = ((ev) => {
+function checkAndSendLoginInformation(event)
+{
     if (userBoolean && passwordBoolean) {
         loginInformation.username = userNameInput.value;
         loginInformation.password = passWordInput.value;
@@ -82,6 +81,20 @@ subButton.onclick = ((ev) => {
         console.log(passwordBoolean);
         alert("Username or Password incorrect.")
     }
-    console.log(ev);
+    console.log(event);
+}
+
+let subButton = document.getElementById('loginEnter');
+let loginInformation = {};
+// TODO: Make it so that hitting the enter key also triggers the button
+subButton.onclick = ((event) => {
+    checkAndSendLoginInformation(event)
+});
+passWordInput.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        checkAndSendLoginInformation();
+    }
 });
 

@@ -54,40 +54,21 @@ policyButton.onchange = ((ev) => {
 });
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-async function sendPostRequestPostImage(jsonString) {
+async function sendPostRequestPostImage(jsonObject) {
     const url = '/postimage';
 
     try {
         const response = await fetch(url, {
             method: 'POST', // or 'PUT'
-            body: jsonString, // data can be `string` or {object}!
+            body: JSON.stringify(jsonObject), // data can be `string` or {object}!
             headers: {'Content-Type': 'application/json'}
         });
 
-        const json = await response.json();
-        console.log('Success:', JSON.stringify(json));
+        const json = await response.blob();
+        console.log('Image Success!: ', JSON.stringify(json));
     } catch (error) {
         console.error('Error:', error);
     }
-}
-
-async function testBlob(img) {
-    const response = await fetch(img);
-    const blob = await response.blob();
-    document.getElementById(img).src = URL.createObjectURL(blob);
-}
-
-function blobTester(img) {
-    console.log("testing blob functionality with json");
-    fetch(img.src)
-        .then(response => {
-            console.log(response);
-            return response.blob();
-        })
-        .then(blob => {
-            console.log(blob);
-            document.getElementById(img).src = URL.createObjectURL(blob);
-        })
 }
 
 
@@ -95,21 +76,23 @@ let subButton = document.getElementById("postButton");
 let postInformation = {};
 subButton.onclick = ((ev) => {
     if (inputPostImageBool && policyButtonBool && postDescriptionBool && postTitleBool) {
-        postInformation.image = img;
-        postInformation.title = inputPostTitle;
-        postInformation.description = inputPostDescription;
+        postInformation.title = inputPostTitle.value;
+        postInformation.description = inputPostDescription.value;
+        postInformation.imageURL = img.src;
+        console.log("Post Title: " + postInformation.title);
+        console.log("Post Info: " + postInformation.description);
+        console.log("Post Image URL: " + postInformation.imageURL);
 
-        let postImageJSONString = JSON.stringify(postInformation);
-        console.log(postImageJSONString);
-
-        // TODO: Make the image a blob, it has already had its src assigned.
-        // sendPostRequestPostImage(postImageJSONString);
-        testBlob(img).then(response => {
+        sendPostRequestPostImage(postInformation).then(response => {
             console.log(response);
+            // TODO: Instead of alerts could do injections into the mustache so it's not invasive.
+            // TODO: Have a timer for redirection.
+            alert("Success! Click ok to view your post!");
+            // TODO: Inject image from database into viewpost.mustache, and also inject comments from database
+            window.location.replace('/viewpost');
         });
 
-        alert("Success! Click ok to view your post!");
-        window.location.replace("/viewpost")
+
     }
     else {
         console.log(postTitleBool);

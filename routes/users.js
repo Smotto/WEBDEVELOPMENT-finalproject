@@ -8,7 +8,6 @@ Account.prototype = {
         body.password = bcrypt.hashSync(body.password, 10);
         let person = [body.username, body.email, body.password];
         let sql = `INSERT IGNORE INTO users (username, email, password) VALUES (?, ?, ?)`;
-        // TODO: If this was inserted into the database, then return a boolean to the end point.
         databaseConnector.query(sql, person, function(err, lastId) {
             if(err) throw err;
             console.log("Last Insert ID: ",lastId.insertId);

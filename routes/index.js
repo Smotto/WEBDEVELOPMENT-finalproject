@@ -19,8 +19,7 @@ router.get('/registration', (req, res) => {
     if (req.session.user) {
         res.render('index');
     }
-    else
-    {
+    else {
         res.render('registration');
     }
 });
@@ -62,8 +61,7 @@ router.post('/login', (req, res, next) => {
     console.log('Login Post Request Received ... ', "Requesting: ", req.body.username, req.body.password);
 
     if (req.session.user) {
-        console.log("Already logged, also you shouldn't see this at all.");
-        res.json("Shawty you're already logged in.");
+        console.log("Already logged in, also you shouldn't see this at all.");
         res.render('index');
     }
     else {
@@ -106,7 +104,20 @@ router.get('/postimage', (req, res) => {
 });
 /* Post an Image */
 router.post('/postimage', (req, res) => {
-    console.log("postimage Post request received.")
+    console.log("postimage Post request received.");
+    if(req.session.user) {
+        // TODO: Create post using: id, title, description, fk_userid, active, photopath
+        // TODO: fk_userid should be from the session, id should be created, everything else should be from the json
+        console.log("User session exists!");
+        console.log(req.body);        // .body is bodyParser which is part of express
+        console.log("User ID: " + req.session.user);
+
+        // Send image url back to the front end
+        res.json(req.body.imageURL)
+    }
+    else {
+        console.log("You are not logged in.")
+    }
 });
 
 /* LOGOUT */

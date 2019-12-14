@@ -119,9 +119,8 @@ tosPrivacyButton.onchange = ((ev) => {
     console.log(ev);
 });
 
-let subButton = document.getElementById("registerEnter");
-let regInformation = {};
-subButton.onclick = ((ev) => {
+function checkAndSendRegistrationInformation(ev)
+{
     if (userNameInputRegBool && emailInputBool && passWordConfirmationBooleanReg
         && passWordBooleanReg && thirteenPlusButtonBool && tosPrivacyButtonBool) {
         regInformation.username = userNameInputReg.value;
@@ -148,4 +147,11 @@ subButton.onclick = ((ev) => {
         alert("Unable to register.")
     }
     console.log(ev);
+}
+
+let subButton = document.getElementById("registerEnter");
+let regInformation = {};
+subButton.onclick = ((ev) => {
+    checkAndSendRegistrationInformation(ev);
 });
+
