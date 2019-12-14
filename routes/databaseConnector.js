@@ -5,7 +5,7 @@ exports.mysql = mysql;
 const databaseConnector = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'csc317db'
 });
 

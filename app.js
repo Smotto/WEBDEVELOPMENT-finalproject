@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const logger = require('morgan');
 const app = express();
+const fileUpload = require('express-fileupload');
+const mysql = require('mysql');
 
 /* Router Variables */
 const indexRouter = require('./routes/index');
@@ -31,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 /* App Routes */
 app.use('/', indexRouter);

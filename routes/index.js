@@ -1,6 +1,10 @@
 const express = require('express');
 const Account = require('../routes/users');
+const Photo = require('../routes/images');
 const router = express.Router();
+const exFileUpload = require('express-fileupload');
+
+let photo = new Photo();
 let user = new Account();
 
 /* GET home page. */
@@ -10,10 +14,12 @@ router.get('/', (req, res, next) => {
     if (req.session.user) { console.log("Current Session ID: " + req.session.user); }
     res.render('index');
 });
+
 /* GET home page redirection. */
 router.get('/index', (req, res, next) => {
     res.redirect('/');
 });
+
 /* GET Register Page */
 router.get('/registration', (req, res) => {
     if (req.session.user) {
@@ -23,6 +29,7 @@ router.get('/registration', (req, res) => {
         res.render('registration');
     }
 });
+
 /* POST register data */
 router.post('/registration', (req, res) => {
     let userInput = {
@@ -56,6 +63,7 @@ router.get('/login', (req, res) => {
     }
 
 });
+
 /* POST login data */
 router.post('/login', (req, res, next) => {
     console.log('Login Post Request Received ... ', "Requesting: ", req.body.username, req.body.password);
@@ -106,6 +114,36 @@ router.get('/postimage', (req, res) => {
 router.post('/postimage', (req, res) => {
     console.log("postimage Post request received.");
     if(req.session.user) {
+        let userSubmit = {
+            title: req.body.title,
+            description: req.body.description,
+            imageURL: req.body.imageURL,
+            fk_userid: req.session.user.id
+        };
+
+        var file = req.files.imageURL;
+        photo.createPost(userSubmit, (lastId) => {
+            //TODO: Move file into public/images and insert into database with user.id
+            if(lastId) {
+                photo.findImage(lastId, (result) =>{
+
+                    /*file.mv('public/images/upload_images/'+file.name, function(err) {
+
+                        if (err)
+
+                            return res.status(500).send(err);
+                        var sql = "INSERT INTO `users_image`(`first_name`,`last_name`,`mob_no`,`user_name`, `password` ,`image`) VALUES ('" + fname + "','" + lname + "','" + mob + "','" + name + "','" + pass + "','" + img_name + "')";
+
+                        var query = db.query(sql, function(err, result) {
+                            res.redirect('profile/'+result.insertId);
+                        });
+                    });*/
+                    //res.redirect('/viewpost');
+                });
+            } else {
+                console.log('Could not post image');
+            }
+        });
         // TODO: Create post using: id, title, description, fk_userid, active, photopath
         // TODO: fk_userid should be from the session, id should be created, everything else should be from the json
         console.log("User session exists!");
@@ -117,6 +155,7 @@ router.post('/postimage', (req, res) => {
     }
     else {
         console.log("You are not logged in.")
+        res.redirect('/login');
     }
 });
 
