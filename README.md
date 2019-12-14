@@ -29,14 +29,12 @@ Which ever member created the repository will need to invite the other member to
 # Build/Run Instructions
 Below please explain how to fully install and run your application.
 
-1. Download zip folder.
+1. Download the project zip folder.
 2. Download and Install Node.js 12.13.1 LTS
-3. Access terminal.
-4. Change directory to unzipped folder.
-5. Type into the terminal "npm express install --save"
-6. Type into the terminal "npm install mysql"
-7. Type into the terminal "npm install mustache"
-8. Type into the terminal "npm install express-session"
-9. Run the init.sql script in your terminal using mySQL to create the database.
-10. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
-11. Browse through the website.
+3. Download and Install mySQL (community server if you wish).
+4. Access terminal.
+5. Change directory to the project's unzipped folder.
+6. Type into the terminal "npm install"
+7. Run the init.sql script in your terminal using mySQL to create the database.
+8. Type into the terminal "npm start", and go to your browser and type into the url-bar "localhost:3000"
+9. Browse through the website.
