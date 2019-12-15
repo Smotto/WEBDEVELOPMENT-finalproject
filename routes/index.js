@@ -124,7 +124,7 @@ router.get('/postimage', (req, res) => {
     }
     else{
         console.log("You are not in a session.");
-        res.render('index');
+        res.redirect('../login');
     }
 
 });
@@ -136,11 +136,10 @@ router.post('/postimage', (req, res) => {
         let userSubmit = {
             title: req.body.title,
             description: req.body.description,
-            imageURL: req.body.imageURL,
-            fk_userid: req.session.user
+            fk_userid: req.session.user,
+            imageURL: req.body.imageURL
         };
 
-        var file = req.files.imageURL;
         photo.createPost(userSubmit, (lastId) => {
             //TODO: Move file into public/images and insert into database with user.id
             if(lastId) {
@@ -163,8 +162,6 @@ router.post('/postimage', (req, res) => {
                 console.log('Could not post image');
             }
         });
-        // TODO: Create post using: id, title, description, fk_userid, active, photopath
-        // TODO: fk_userid should be from the session, id should be created, everything else should be from the json
         console.log("User session exists!");
         console.log(req.body);        // .body is bodyParser which is part of express
         console.log("User ID: " + req.session.user);
@@ -173,8 +170,8 @@ router.post('/postimage', (req, res) => {
         res.json(req.body.imageURL)
     }
     else {
-        console.log("You are not logged in.")
-        res.redirect('/login');
+        console.log("You are not logged in.");
+        res.redirect('../login');
     }
 });
 

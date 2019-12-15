@@ -6,7 +6,7 @@ Photo.prototype = {
     createPost: function(body, callback) {
 
         let photo = [body.title, body.description, body.fk_userid, body.imageURL];
-        let sql = `INSERT IGNORE INTO imageposts (title, description, fk_userid, photopath value (?, ?, ?, ?)`;
+        let sql = `INSERT IGNORE INTO imageposts (title, description, fk_userid, photopath) VALUES (?, ?, ?, ?)`;
 
         databaseConnector.query(sql, photo, function(err, lastId) {
             if (err) throw err;
