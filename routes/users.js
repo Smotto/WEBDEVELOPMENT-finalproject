@@ -39,8 +39,7 @@ Account.prototype = {
             }
     },
 
-    login: function(username, password, callback)
-    {
+    login: function(username, password, callback) {
         console.log("Account login function activated.");
         this.find(username, function(account) {
             if(account) {
@@ -59,6 +58,16 @@ Account.prototype = {
                 }
             }
             callback(null);
+        });
+    },
+
+    logout: function(user, callback) {
+
+        let sql = `UPDATE users SET active = 0 WHERE id = ?`;
+        databaseConnector.query(sql, user, (err, result) =>{
+            if (err) throw err;
+            console.log(result.affectedRows + " record(s) updated");
+            callback(user);
         });
     }
 };

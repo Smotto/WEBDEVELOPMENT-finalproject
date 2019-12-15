@@ -179,11 +179,13 @@ router.post('/postimage', (req, res) => {
 router.get('/logout', (req, res, next) => {
     if(req.session.user){
         console.log("Logging out user ID: " + req.session.user);
-        req.session.destroy(() => {
-            console.log("Logout Successful!");
-            // TODO: When logged out, reset active in the database.
-            // TODO: What if the user just exits the browser? How do we reset active in the database?
-            res.render('logout');
+        user.logout(req.session.user, (result) => {
+            if (result) {
+                req.session.destroy(() => {
+                    console.log("Logout Successful!");
+                    res.render('logout');
+                });
+            }
         });
     }
     else {
