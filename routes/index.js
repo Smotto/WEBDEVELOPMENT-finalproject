@@ -144,7 +144,6 @@ router.post('/postimage', (req, res) => {
             //TODO: Move file into public/images and insert into database with user.id
             if(lastId) {
                 photo.findImage(lastId, (result) =>{
-
                     /*file.mv('public/images/upload_images/'+file.name, function(err) {
 
                         if (err)
@@ -156,18 +155,12 @@ router.post('/postimage', (req, res) => {
                             res.redirect('profile/'+result.insertId);
                         });
                     });*/
-                    //res.redirect('/viewpost');
+                    res.json(result);
                 });
             } else {
                 console.log('Could not post image');
             }
         });
-        console.log("User session exists!");
-        console.log(req.body);        // .body is bodyParser which is part of express
-        console.log("User ID: " + req.session.user);
-
-        // Send image url back to the front end
-        res.json(req.body.imageURL)
     }
     else {
         console.log("You are not logged in.");
