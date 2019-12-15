@@ -132,7 +132,7 @@ function checkAndSendRegistrationInformation(ev)
         sendPostRequest(convertedJSObjectREGISTRATION, '/registration').then(processResponse => {
             console.log(processResponse);
             alert("Success!");
-            window.location.replace("/index")
+            window.location.replace("/");
         }).catch(err => {
             console.log(err);
         });
