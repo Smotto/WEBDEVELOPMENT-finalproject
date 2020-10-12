@@ -1,7 +1,7 @@
-# CSC 317 Term Project
-
+CSC 317 Term Project
 ## Purpose
-
+** ATTENTION, THE BACKEND BRANCH IS THE MOST UPDATED. **
+** Anything with * is changed after the project due date **
 The purpose of this repository is to store all the code for your web application. This also includes the history of all commits made and who made them. Only code submitted on the master branch will be graded.
 
 Please follow the instructions below and fill in the information requested when prompted.
@@ -10,8 +10,8 @@ Please follow the instructions below and fill in the information requested when 
 
 |               | Name          | Email         |
 |:-------------:|:-------------:|:-------------:|
-| Team Member 1 | Jarod Castillo      | jcastillo1@mail.sfsu.edu     |
-| Team Member 2 | Jahir Hernandez      | Jhernandez12@mail.sfsu.edu     |
+| Team Member 1 | Jarod Castillo      | *removed |
+| Team Member 2 | Jahir Hernandez      | *removed     |
 
 ## Changing Repository Name
 
